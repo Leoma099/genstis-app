@@ -1,0 +1,52 @@
+[
+    {
+        "ticketId": "1",
+        "priority": "Low",
+        "clientName": "Juan Dela Cruz",
+        "department": "College of Engineering",
+        "status": "Open",
+        "dateCreated": "22 December 2024",
+        "ticketSubject": "Technical Problem",
+        "assignedTo": "Christopher Ramos"
+    },
+    {
+        "ticketId": "2",
+        "priority": "High",
+        "clientName": "Cardo Dalisay",
+        "department": "College of Architecture",
+        "status": "In Progress",
+        "dateCreated": "10 December 2024",
+        "ticketSubject": "Server",
+        "assignedTo": "Jacob Canlas"
+    },
+    {
+        "ticketId": "3",
+        "priority": "Mediu",
+        "clientName": "Chuck Norris",
+        "department": "College of Computer Studies",
+        "status": "Closed",
+        "dateCreated": "28 December 2024",
+        "ticketSubject": "Internet Problem",
+        "assignedTo": "Jovin Torres"
+    },
+    {
+        "ticketId": "4",
+        "priority": "Low",
+        "clientName": "Bruno Mars",
+        "department": "College of Engineering",
+        "status": "Resolved",
+        "dateCreated": "10 December 2024",
+        "ticketSubject": "TV Problem",
+        "assignedTo": "Jovin Torres"
+    },
+    {
+        "ticketId": "5",
+        "priority": "Low",
+        "clientName": "Bronny James",
+        "department": "College of Engineering",
+        "status": "Closed",
+        "dateCreated": "10 December 2024",
+        "ticketSubject": "Refrigerator",
+        "assignedTo": "Jovin Torres"
+    }
+]

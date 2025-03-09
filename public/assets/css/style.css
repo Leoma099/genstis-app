@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", serif;
+    text
+}
+
+:root {
+
+    --black: #07080A;
+    --mountbatten-pink: #9A7A9D;
+    --white: #ffffff;
+    --chinese-violet: #734F79;
+    --anti-flash-white: #F2F1F4;
+    --eminence: #793A91;
+    --red: #ff0000;
+
+    --columban-blue: #2369c1;
+    --cobalt-blue: #3377cc;
+
+}
+
+body {
+
+    background-color: var(--anti-flash-white) !important;
+
+}
+
+.sidebar.closed {
+
+    transform: translateX(-100%);
+
+}
+
+.sidebar {
+
+    position: fixed;
+    width: 230px;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--white);
+    z-index: 9999;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.sidebar .sidebar-logo {
+
+    width: 230px;
+    height: 64px;
+    overflow: hidden;
+    padding: 20px;
+
+}
+
+.sidebar .sidebar-logo img {
+
+    width: 100%;
+    object-fit: cover;
+
+}
+
+.sidebar .sidebar-nav {
+
+    list-style: none;
+    padding-block: 20px;
+    padding-left: 20px;
+    margin-bottom: 0px;
+    flex-grow: 1;
+    /* Ensures the content area grows and takes up all available space */
+    display: flex;
+    flex-direction: column;
+
+}
+
+.sidebar .sidebar-nav li {
+
+    transition: all 0.2s ease-in-out;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+
+}
+
+.sidebar .sidebar-nav li a {
+
+    font-size: 0.85rem;
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    cursor: pointer;
+    color: #a200ff;
+
+}
+
+.sidebar .sidebar-nav li a i {
+
+    margin-right: 5px;
+
+}
+
+.sidebar .sidebar-nav li:hover {
+
+    border-right: 5px solid #a200ff;
+    background-color: #db9cff;
+
+}
+
+.sidebar .sidebar-nav li:hover a {
+
+    color: var(--white);
+
+}
+
+.sidebar .sidebar-nav li:last-child {
+
+    margin-top: auto;
+    margin-bottom: 0px;
+
+}
+
+.content-area {
+
+    position: relative;
+    margin-left: 230px;
+    transition: margin-left 0.3s ease;
+
+}
+
+.content-area nav {
+
+    position: sticky;
+    top: 0;
+    background-color: #a200ff;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    z-index: 1055;
+
+}
+
+.content-area nav .component-left a i {
+
+    color: var(--white);
+
+}
+
+.content-area nav .component-right {
+
+    display: flex;
+    align-items: center;
+
+}
+
+.content-area nav .component-right a {
+
+    margin-right: 20px;
+    text-decoration: none;
+    color: var(--white);
+
+}
+
+.content-area nav .component-right .profile .profile-img {
+
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 5rem;
+
+}
+
+.content-area nav .component-right .profile .profile-img img {
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+}
+
+.content-area nav .component-right .icon-badge {
+
+    position: relative;
+    width: 20px;
+    height: 20px;
+
+}
+
+.content-area nav .component-right .icon-badge .badge {
+
+    position: absolute;
+    top: -12px;
+    right: -10px;
+    border-radius: 30%;
+    border: 3px solid var(--eminence);
+    background-color: var(--red);
+    color: var(--white);
+    padding: 2px 5px;
+    font-size: .7rem;
+
+}
+
+.content-area main {
+
+    padding: 20px;
+
+}

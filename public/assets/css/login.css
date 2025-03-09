@@ -1,0 +1,114 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.login-wrapper  
+{
+    display: flex;
+}
+
+.left
+{
+    width: 40%;
+    height: auto;
+    padding: 40px;
+    background-color: rgb(215, 146, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+
+    .login-image
+    {
+        width: 300px;
+        overflow: hidden;
+
+        img
+        {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+.right
+{
+    width: 60%;
+    height: 100vh;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.right form
+{
+    background-color: #ffffff;
+    padding: 20px;
+    width: 400px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow:  20px 20px 60px #bebebe,
+             -20px -20px 60px #ffffff;
+
+    .login-input
+    {
+        width: 100%;
+        border: 1px solid #c2c2c2;
+        padding: 0px 10px;
+    }
+    .login-input input
+    {
+        width: 100%;
+        height: 30px;
+        padding: 5px;
+        outline: none;
+        border: none;
+    }
+
+    .right-image
+    {
+        width: 60px;
+        height: 60px;
+        overflow: hidden;
+        margin: auto;
+
+        img
+        {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .login-title
+    {
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin: 0px;
+    }
+
+    h4
+    {
+        text-align: center;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        color: #a200ff;
+        font-weight: 600;
+    }
+
+    .login-button button
+    {
+        width: 100%;
+        background-color: #a200ff;
+        border: none;
+        padding: 5px 10px;
+        color: #ffffff;
+        font-weight: 500;
+    }
+}
