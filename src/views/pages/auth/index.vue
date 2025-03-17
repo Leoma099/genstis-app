@@ -1,34 +1,29 @@
 <template>
     <div class="animate animate-fade-in">
-
         <div class="login-body">
-
             <div class="login-wrapper">
-
                 <div class="left">
-
                     <div>
-                        
                         <div class="login-image">
                             <img src="/assets/images/gensts-ccs.png" alt="">
                         </div>
-
                         <div>
-                            <p>Welcome to</p>
+                            <p class="mb-0">Welcome to</p>
                             <h3>ITSO-CCI Ticketing System</h3>
                             <small>
                                 ITSO-CCI Ticketing System is a web-based General System Ticketing Service designed for Columban College, Inc. (CCI) to streamline technical support requests. It allows users to submit, track, and manage tickets efficiently, ensuring a smooth resolution process for IT and system-related issues.
                             </small>
                         </div>
-
                     </div>
-
                 </div>
 
                 <div class="right">
+                    <!-- Show loading spinner if isLoading is true -->
+                    <div v-if="isLoading" class="loading-overlay">
+                        <div class="spinner"></div>
+                    </div>
 
-                    <form @submit.prevent="submit()">
-
+                    <form @submit.prevent="submit">
                         <div>
                             <div class="right-image">
                                 <img src="/assets/images/cc_logo.png" alt="">
@@ -54,42 +49,36 @@
                         <div class="login-button">
                             <button type="submit">Login</button>
                         </div>
-
                     </form>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </template>
 
 <script>
 import apiClient from "@/services/authorization"; // Import the Axios instance
 import { useToast } from "vue-toastification";
-export default
-{
+
+export default {
     data() {
         return {
-            form:
-            {
+            form: {
                 username: "",
                 password: "",
             },
+            isLoading: false,  // Track if the login is in progress
         };
     },
 
-    mounted()
-    {
-        this.toast = useToast()
+    mounted() {
+        this.toast = useToast();
     },
 
-    methods:
-    {
+    methods: {
         async submit() {
+            this.isLoading = true; // Show loading spinner when login starts
+
             try {
                 // Use the Axios instance for the login request
                 const response = await apiClient.post('/login', this.form);
@@ -105,14 +94,17 @@ export default
                 // Redirect after a short delay
                 setTimeout(() => {
                     window.location.href = '/';
-                }, 1000); // Adjust delay as needed
-                this.toast.success("Login successfully!")
+                }, 1000); // Delay of 1 second
+
+                this.toast.success("Login successfully!");
             } catch (error) {
-                this.toast.error("Login unsuccessfully!")
+                this.toast.error("Login unsuccessfully!");
                 console.error('Login failed:', error.response?.data || error.message);
+            } finally {
+                this.isLoading = false; // Hide the loading spinner after login is complete
             }
-        }
-    }
+        },
+    },
 };
 </script>
 
@@ -121,6 +113,7 @@ export default
     animation-duration: 1s;
     animation-fill-mode: none;
 }
+
 .animation-fade-in {
     animation-name: fadeIn;
 }
@@ -133,9 +126,38 @@ export default
         opacity: 1;
     }
 }
+
 .page-title {
     font-weight: 600;
     font-size: 1.5rem;
     color: #2369c1;
+}
+
+/* Add styles for the loading spinner */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3; /* Light grey */
+    border-top: 4px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 </style>

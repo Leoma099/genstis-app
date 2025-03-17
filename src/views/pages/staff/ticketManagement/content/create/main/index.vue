@@ -1,6 +1,12 @@
 <template>
     <div class="mt-3 col-4 mx-auto">
         <div class="card card-body shadow-sm border-0 rounded-0">
+
+            <!-- Show loading spinner if isLoading is true -->
+            <div v-if="isLoading" class="loading-overlay">
+                <div class="spinner"></div>
+            </div>
+
             <form @submit.prevent="submit">
                 <p><strong>Fill out the form appropriately.</strong></p>
 
@@ -159,6 +165,7 @@ export default
                 photo: "",
                 assigned_by: "0",
             },
+            isLoading: false,  // Track if the login is in progress
         };
     },
 
@@ -187,6 +194,8 @@ export default
                 formData.append(key, this.form[key]);
             }
 
+            this.isLoading = true; // Show loading spinner when login starts
+
             try
             {
                 const response = await apiClient.post("/ticket", formData);
@@ -200,6 +209,10 @@ export default
             {
                 this.toast.error("Ticket created unsuccessfully!")
                 console.error("Error", error)
+            }
+            finally
+            {
+                this.isLoading = false; // Hide the loading spinner after login is complete
             }
         },
 

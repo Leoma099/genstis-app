@@ -7,7 +7,15 @@
         </div>
 
         <div class="component-right">
+
             <!-- Notification Dropdown -->
+            <a
+              class="icon-badge notification-container"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasRight"
+              aria-controls="offcanvasRight">
+              <i class="bx bxs-bell"></i>
+            </a>
             <!-- <div class="icon-badge notification-container" @click="toggleDropdown">
                 <i class="bx bxs-bell"></i>
                 <span class="badge">{{ notifications.length }}</span>
@@ -29,10 +37,12 @@
                 </div>
             </router-link>
         </div>
+        <off-canvas-component />
     </nav>
 </template>
 
 <script>
+import OffCanvasComponent from "./offcanvas/index.vue";
 export default
 {
     data()
@@ -42,6 +52,11 @@ export default
             notifications: Array.from({ length: 30 }, (_, i) => `Notification ${i + 1}`), // Example: 20 notifications
             user: null, // Will store user data here
         };
+    },
+
+    components:
+    {
+        OffCanvasComponent
     },
 
     computed:

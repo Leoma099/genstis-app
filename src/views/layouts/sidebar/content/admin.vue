@@ -18,10 +18,41 @@
         </router-link>
     </li>
 
-    <!-- <li>
-        <router-link :to="'/administration/mail-box'">
-            <i class="bx bxs-receipt"></i>Mailbox
+    <li>
+        <router-link :to="'/administration/report-and-analytics'">
+            <i class="bx bxs-report"></i>Report and Analytics
         </router-link>
-    </li> -->
+    </li>
+
+    <li>
+        <router-link :to="'/administration/team'">
+            <i class="bx bxs-group"></i>Team
+        </router-link>
+    </li>
+
+    <li>
+        <router-link :to="'/administration/team'">
+            <i class="bx bxs-cog"></i>Setting
+        </router-link>
+    </li>
+
+    <off-canvas-component />
 
 </template>
+<script>
+import OffCanvasComponent from "@/views/layouts/header/offcanvas/index.vue"
+export default
+{
+    data()
+    {
+        return{
+
+        }
+    },
+
+    components:
+    {
+        OffCanvasComponent
+    }
+}
+</script>

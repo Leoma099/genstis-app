@@ -1,7 +1,13 @@
 <template>
     <div class="mt-3 col-4 mx-auto">
         <div class="card card-body shadow-sm border-0 rounded-0">
+            <div v-if="isLoading" class="loading-overlay">
+                <div class="spinner"></div>
+            </div>
+
             <form @submit.prevent="submit">
+                <h3 class="text-secondary">{{ form.ticket_order }}</h3>
+
                 <p><strong>Fill out the form appropriately.</strong></p>
 
                 <div class="mb-3">
@@ -147,7 +153,9 @@ export default
     data()
     {
         return {
-            form: {
+            form:
+            {
+                ticket_order: '',
                 full_name: "",
                 department: "0",
                 subject: "0",
@@ -159,16 +167,27 @@ export default
                 photo: "",
                 assigned_by: "0",
             },
+            isLoading: false,  // Track if the login is in progress
+            ticketCount: 1, // Initialize ticket counter
         };
     },
 
     mounted()
     {
-        this.toast = useToast()
+        this.toast = useToast();
+        this.form.ticket_order = this.generateTicketNumber();
     },
 
     methods:
     {
+        generateTicketNumber()
+        {
+            // Generate ticket number in the format TO#00001
+            const ticketNumber = `TO#${Math.ceil(Math.random() * 10000)}`;
+            this.form.ticket_order = ticketNumber; // Assign to form.ticket_order
+            return ticketNumber;
+        },
+
         getCurrentDate()
         {
             const today = new Date();
@@ -180,12 +199,17 @@ export default
 
         async submit()
         {
+            // Generate the ticket number before submitting
+            this.form.ticket_order = this.generateTicketNumber();
+
             const formData = new FormData();
             // Append form fields to FormData
             for(let key in this.form)
             {
                 formData.append(key, this.form[key]);
             }
+
+            this.isLoading = true; // Show loading spinner when login starts
 
             try
             {
@@ -200,6 +224,10 @@ export default
             {
                 this.toast.error("Ticket created unsuccessfully!")
                 console.error("Error", error)
+            }
+            finally
+            {
+                this.isLoading = false; // Hide the loading spinner after login is complete
             }
         },
 
@@ -217,9 +245,40 @@ export default
 </script>
 
 <style scoped>
-.page-title {
+.page-title
+{
     font-weight: 600;
     font-size: 1.5rem;
     color: #a200ff;
+}
+/* Add styles for the loading spinner */
+.loading-overlay
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner
+{
+    border: 4px solid #f3f3f3; /* Light grey */
+    border-top: 4px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin
+{
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 </style>

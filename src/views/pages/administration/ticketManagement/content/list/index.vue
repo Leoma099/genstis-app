@@ -31,10 +31,11 @@
                     <table class="table table-bordered table-hover mb-0">
                         <thead>
                             <tr>
+                                <th class="table-header">TICKET ORDER</th>
+                                <th class="table-header">DEPARTMENT</th>
                                 <th class="table-header">CLIENT NAME</th>
                                 <th class="table-header">SUBJECT</th>
                                 <th class="table-header">PRIORITY</th>
-                                <th class="table-header">DESCRIPTION</th>
                                 <th class="table-header">ASSIGNEE</th>
                                 <th class="table-header">STATUS</th>
                                 <th class="table-header">REQUEST DATE</th>
@@ -70,6 +71,7 @@ export default
         return{
 
             items:[],
+            ticketCount: 1, // Initialize ticket counter
             searchQuery: "",
             isLoading: false,
 

@@ -1,64 +1,87 @@
 <template>
-    <tr>
-        <td class="table-data">
-            {{ item.ticket_order }}
-        </td>
-        <td class="table-data">
-            {{ formatDepartment(item.department) }}
-        </td>
-        <td class="table-data">
-            {{ item.full_name }}
-        </td>
-        <td class="table-data">
-            {{ formatSubject(item.subject) }}
-        </td>
-        <td class="table-data">
-            {{ formatPriorityLevel(item.priority_level) }}
-        </td>
-        <td class="table-data">
-            {{ formatAsignee(item.assigned_by) }}
-        </td>
-        <td class="table-data">
+    <div class="card card-body shadow-sm rounded-0 border-0">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <p class="mb-0"><strong>List of asignee</strong></p>
+            <div class="col-3">
+                <input
+                    type="search"
+                    class="form-control form-control-sm rounded-0"
+                    placeholder="Type your search here">
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th class="table-header">TICKET ORDER</th>
+                        <th class="table-header">DEPARTMENT</th>
+                        <th class="table-header">CLIENT NAME</th>
+                        <th class="table-header">SUBJECT</th>
+                        <th class="table-header">PRIORITY</th>
+                        <th class="table-header">ASSIGNEE</th>
+                        <th class="table-header">STATUS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item, index) in items" :key="index">
+                        <td class="table-data">
+                            {{ item.ticket_order }}
+                        </td>
+                        <td class="table-data">
+                            {{ formatDepartment(item.department) }}
+                        </td>
+                        <td class="table-data">
+                            {{ item.full_name }}
+                        </td>
+                        <td class="table-data">
+                            {{ formatSubject(item.subject) }}
+                        </td>
+                        <td class="table-data">
+                            {{ formatPriorityLevel(item.priority_level) }}
+                        </td>
+                        <td class="table-data">
+                            {{ formatAsignee(item.assigned_by) }}
+                        </td>
+                        <td class="table-data">
             {{ formatStatus(item.status) }}
         </td>
-        <td class="table-data">
-            {{ item.request_date }}
-        </td>
-        <td class="table-data">
-            {{ item.completed_date || "TBD"}}
-        </td>
-        <td class="table-data">
-            <router-link
-                :to="`/administration/ticket-management/${item.id}`"
-                class="btn btn-outline-info btn-sm me-3"
-                ><i class="bx bx-show"></i>
-            </router-link>
-
-            <button
-                class="btn btn-outline-danger btn-sm"
-                @click="deleteTicket()"><i class="bx bx-trash"></i>
-            </button>
-        </td>
-    </tr>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </template>
+
 <script>
 import apiClient from "@/services/authorization";
-import { useToast } from "vue-toastification";
 export default
 {
-    props:
+    data()
     {
-        item: Object,
-        isLoading: Boolean
+        return{
+            items: [],
+        }
     },
 
     mounted()
     {
-        this.toast = useToast()
+        this.fetchData();
     },
 
     methods:
     {
+        async fetchData()
+        {
+            try
+            {
+                const response = await apiClient.get("/ticket");
+                this.items = response.data;
+            }
+            catch(error)
+            {
+                console.error("Error occured:", error)
+            }
+        },
         formatDepartment(department)
         {
             if(department === 1)
@@ -204,7 +227,6 @@ export default
                 return "n/a";
             }
         },
-
         formatStatus(status)
         {
             if(status === 1)
@@ -228,7 +250,6 @@ export default
                 return "n/a";
             }
         },
-
         formatAsignee(asigned_by)
         {
             if(asigned_by === 1)
@@ -248,53 +269,17 @@ export default
                 return "n/a";
             }
         },
-
-        async deleteTicket()
-        {
-            if(!confirm("Are you sure you want to delete?")) return;
-
-            try
-            {
-                const response = await apiClient.delete(`/ticket/${this.item.id}`);
-                console.log("delete sucess:", response.data);
-                this.toast.success("Ticket deleted successfully!");
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1000);
-            }
-            catch(error)
-            {
-                console.error("Error deleteing:", error);
-                this.toast.error("Ticket deleted unsuccessfully!")
-            }
-        }
     }
 }
 </script>
+
 <style scoped>
-.table-header {
+.table-header
+{
     font-size: 0.85rem;
     font-weight: 600;
     padding: 10px;
-    background-color: #2369c1;
+    background-color: #a200ff;
     color: #ffffff;
-}
-.shimmer-loader {
-    height: 16px;
-    width: 100%;
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite linear;
-    border-radius: 4px;
-}
-
-@keyframes shimmer {
-    0% {
-        background-position: -200% 0;
-    }
-
-    100% {
-        background-position: 200% 0;
-    }
 }
 </style>

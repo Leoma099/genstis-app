@@ -4,6 +4,11 @@
 
         <div class="card card-body shadow-sm border-0 rounded-0">
 
+            <!-- Show loading spinner if isLoading is true -->
+            <div v-if="isLoading" class="loading-overlay">
+                <div class="spinner"></div>
+            </div>
+
             <form @submit.prevent="submit()">
                 
                 <div class="mb-3">
@@ -180,7 +185,8 @@ export default
                 request_date: "",
                 completed_date: "",
                 photo: null,
-            }
+            },
+            isLoading: false,  // Track if the login is in progress
 
         }
     },
@@ -210,6 +216,7 @@ export default
 
         async submit()
         {
+            this.isLoading = true; // Show loading spinner when login starts
             try
             {
                 const response = await apiClient.put(`/ticket/${this.$route.params.id}`, this.form)
@@ -223,6 +230,10 @@ export default
             {
                 console.log("Error occured:", error);
                 this.toast.error("Ticket updated unsuccessfully!")
+            }
+            finally
+            {
+                this.isLoading = false; // Hide the loading spinner after login is complete
             }
         }
     }

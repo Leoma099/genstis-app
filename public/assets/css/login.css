@@ -33,11 +33,23 @@
             object-fit: cover;
         }
     }
+
+    p
+    {
+        font-size: 1.5rem;
+        font-weight: 500;
+    }
+
+    h3
+    {
+        font-size: 2.5rem;
+        font-weight: 600;
+    }
 }
 
 .right
 {
-    width: 60%;
+    width: 6 0%;
     height: 100vh;
     padding: 40px;
     display: flex;

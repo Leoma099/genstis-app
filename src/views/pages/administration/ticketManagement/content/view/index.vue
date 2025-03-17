@@ -137,6 +137,7 @@
                                     type="date"
                                     class="form-control form-control-sm rounded-0"
                                     v-model="form.completed_date"
+                                    disabled
                                 />
                             </div>
                         </div>
