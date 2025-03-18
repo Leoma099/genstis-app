@@ -28,14 +28,14 @@
             {{ formatStatus(item.status) }}
         </td>
         <td class="table-data">
-            {{ item.request_date }}
+            {{ formatDate(item.request_date) }}
         </td>
         <td class="table-data">
-            {{ item.completed_date || "TBD"}}
+            {{ formatDate(item.completed_date) }}
         </td>
         <td class="table-data">
             <router-link
-                :to="`/administration/ticket-management/${item.id}`"
+                :to="`/staff/ticket-management/${item.id}`"
                 class="btn btn-outline-info btn-sm me-3"
                 ><i class="bx bx-show"></i>
             </router-link>
@@ -65,6 +65,14 @@ export default
 
     methods:
     {
+        formatDate(date)
+        {
+            if (!date) return "TBD"; // Handle empty dates
+
+            const options = { year: "numeric", month: "short", day: "numeric" };
+            return new Date(date).toLocaleDateString("en-US", options);
+        },
+
         formatDepartment(department)
         {
             if(department === 1)

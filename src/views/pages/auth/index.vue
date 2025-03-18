@@ -5,13 +5,12 @@
                 <div class="left">
                     <div>
                         <div class="login-image">
+                            <p class="mb-0">Welcome to</p>
                             <img src="/assets/images/gensts-ccs.png" alt="">
                         </div>
                         <div>
-                            <p class="mb-0">Welcome to</p>
-                            <h3>ITSO-CCI Ticketing System</h3>
                             <small>
-                                ITSO-CCI Ticketing System is a web-based General System Ticketing Service designed for Columban College, Inc. (CCI) to streamline technical support requests. It allows users to submit, track, and manage tickets efficiently, ensuring a smooth resolution process for IT and system-related issues.
+                                GENSTS-General Service Ticketing System. Is a Web-Based Ticketing Service System mainly for ITSO. It is a system for IT related concerns in Columban College Main.
                             </small>
                         </div>
                     </div>
@@ -30,7 +29,7 @@
                             </div>
                             <p class="login-title">Columban College, Inc.</p>
                         </div>
-                        <h4>LOGIN TO TICKET SYSTEM</h4>
+                        <h4>LOGIN</h4>
 
                         <div class="form-group mb-3">
                             <label for=""><strong>Username:</strong></label>

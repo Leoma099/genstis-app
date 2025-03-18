@@ -12,10 +12,16 @@
         </router-link>
     </li>
 
-    <!-- <li>
-        <router-link :to="'/staff/mail-box'">
-            <i class="bx bxs-dashboard"></i>Mailbox
+    <li>
+        <router-link :to="'/staff/progress'">
+            <i class="bx bxs-dashboard"></i>Progress
         </router-link>
-    </li> -->
+    </li>
+
+    <li>
+        <router-link :to="'/staff/report'">
+            <i class="bx bxs-dashboard"></i>Reports
+        </router-link>
+    </li>
 
 </template>

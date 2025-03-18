@@ -3,7 +3,7 @@
     <div class="animate animate-fade-in">
 
         <div class="d-flex justify-content-between align-items-center">
-            <p class="page-title mb-0">Ticket List</p>
+            <p class="page-title mb-0">Ticket Lists</p>
             
         </div>
 
@@ -14,7 +14,7 @@
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div>
                         <router-link
-                            :to="'/administration/ticket-management/create'"
+                            :to="'/staff/ticket-management/create'"
                             class="btn rounded-0 button-color">
                             Create New Ticket
                         </router-link>

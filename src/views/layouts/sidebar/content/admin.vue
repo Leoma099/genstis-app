@@ -30,11 +30,11 @@
         </router-link>
     </li>
 
-    <li>
+    <!-- <li>
         <router-link :to="'/administration/team'">
             <i class="bx bxs-cog"></i>Setting
         </router-link>
-    </li>
+    </li> -->
 
     <off-canvas-component />
 

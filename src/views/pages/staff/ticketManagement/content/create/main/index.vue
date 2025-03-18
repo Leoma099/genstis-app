@@ -8,6 +8,8 @@
             </div>
 
             <form @submit.prevent="submit">
+                <h3 class="text-secondary">{{ form.ticket_order }}</h3>
+
                 <p><strong>Fill out the form appropriately.</strong></p>
 
                 <div class="mb-3">
@@ -118,7 +120,7 @@
                     <div class="form-group mb-3">
                         <label class="form-label">* Request Date:</label>
                         <input
-                            type="date"
+                            type="datetime-local"
                             class="form-control form-control-sm rounded-0"
                             v-model="form.request_date"
                             required
@@ -137,7 +139,7 @@
                 </div>
 
                 <div class="text-end mt-3">
-                    <router-link to="/administration/ticket-management" class="btn btn-secondary btn-sm rounded-0 me-3">Cancel</router-link>
+                    <router-link to="/staff/ticket-management" class="btn btn-secondary btn-sm rounded-0 me-3">Cancel</router-link>
                     <button type="submit" class="btn btn-primary btn-sm rounded-0">Submit</button>
                 </div>
             </form>
@@ -154,12 +156,13 @@ export default
     {
         return {
             form: {
+                ticket_order: '',
                 full_name: "",
                 department: "0",
                 subject: "0",
                 priority_level: "1",
                 status: "1",
-                request_date: this.getCurrentDate(),
+                request_date: this.getCurrentDateTime(),
                 completed_date: "",
                 description: "",
                 photo: "",
@@ -171,18 +174,30 @@ export default
 
     mounted()
     {
-        this.toast = useToast()
+        this.toast = useToast();
+        this.form.ticket_order = this.generateTicketNumber();
     },
 
     methods:
     {
-        getCurrentDate()
+        generateTicketNumber()
+        {
+            // Generate ticket number in the format TO#00001
+            const ticketNumber = `TO#${Math.ceil(Math.random() * 10000)}`;
+            this.form.ticket_order = ticketNumber; // Assign to form.ticket_order
+            return ticketNumber;
+        },
+
+        getCurrentDateTime()
         {
             const today = new Date();
             const year = today.getFullYear();
             const month = String(today.getMonth() + 1).padStart(2, "0");
             const day = String(today.getDate()).padStart(2, "0");
-            return `${year}-${month}-${day}`;
+            const hours = String(today.getHours()).padStart(2, "0");
+            const minutes = String(today.getMinutes()).padStart(2, "0");
+
+            return `${year}-${month}-${day}T${hours}:${minutes}`;
         },
 
         async submit()

@@ -4,9 +4,14 @@
             <h5 class="offcanvas-title" id="offcanvasRightLabel">Notifications</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body">
+        <div class="offcanvas-body" v-if="!isEmpty">
             <div v-for="(notification, index) in notifications" :key="index" class="notification">
                 <p>{{ notification }}</p>
+            </div>
+        </div>
+        <div class="offcanvas-body" v-else>
+            <div class="notification-box">
+                <p class="mb-0 text-center">No notifications</p>
             </div>
         </div>
     </div>
@@ -19,6 +24,7 @@ export default
     {
         return {
             notifications: [],
+            isEmpty: true,
         };
     },
     methods:
@@ -38,6 +44,12 @@ export default
     color: white;
     padding: 10px;
     margin-bottom: 10px;
+    border-radius: 5px;
+}
+.notification-box
+{
+    background-color: #e0e0e0;
+    padding: 10px;
     border-radius: 5px;
 }
 </style>

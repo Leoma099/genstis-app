@@ -2,24 +2,25 @@
 
     <div class="animate animate-fade-in">
 
-        <p class="page-title mb-0">Update Ticket</p>
-        <router-link :to="`/staff/ticket-management/`">Go back to page</router-link>
+        <div class="d-flex justify-content-between align-items-center">
+            <p class="page-title mb-0">ON-CALL</p>
+        </div>
 
-        <main-component v-if="$route.meta.subPage === 'main'" />
+        <div class="mt-4">
+            <staff-list/>
+        </div>
 
     </div>
 
 </template>
 
 <script>
-import MainComponent from "./main";
+import StaffList from "./content/staff-list.vue";
 export default
 {
-    name: 'Edit',
-
     components:
     {
-        MainComponent
+        StaffList,
     }
 }
 </script>
@@ -47,5 +48,9 @@ export default
     font-weight: 600;
     font-size: 1.5rem;
     color: #a200ff;
+}
+.button-color {
+    background-color: #a200ff;
+    color: #ffffff;
 }
 </style>

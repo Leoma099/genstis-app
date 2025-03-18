@@ -2,7 +2,7 @@
     <p class="page-title mb-0">View Ticket</p>
     <small>
         <router-link
-            :to="'/administration/ticket-management'">
+            :to="'/staff/ticket-management'">
             Go back to page
         </router-link>
     </small>
@@ -80,7 +80,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group mb-3">
+                    <!-- <div class="form-group mb-3">
                         <label class="form-label">* Assigned To:</label>
                         <select class="form-select form-select-sm rounded-0" v-model="form.assigned_by" disabled>
                             <option value="0" disabled>-- Select Staff --</option>
@@ -88,7 +88,7 @@
                             <option value="2">Jacob R Canlas</option>
                             <option value="3">Jeryc Erjy Mapilisan</option>
                         </select>
-                    </div>
+                    </div> -->
 
                     <div class="row">
                         <div class="col-md-6">
@@ -118,7 +118,17 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="form-group mb-3">
+                        <label class="form-label">* Request Date:</label>
+                        <input
+                            type="date"
+                            class="form-control form-control-sm rounded-0"
+                            v-model="form.request_date"
+                            disabled
+                        />
+                    </div>
+
+                    <!-- <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label class="form-label">* Request Date:</label>
@@ -140,7 +150,7 @@
                                 />
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="form-group mb-3">
                         <label class="form-label mb-0">* Problem Description:</label>
@@ -154,7 +164,7 @@
                 </div>
 
                 <div class="text-end mt-3">
-                    <router-link :to="`/administration/ticket-management/${this.$route.params.id}/edit`" class="btn btn-primary btn-sm rounded-0">Edit</router-link>
+                    <router-link :to="`/staff/ticket-management/${this.$route.params.id}/edit`" class="btn btn-primary btn-sm rounded-0">Edit</router-link>
                 </div>
 
             </form>
