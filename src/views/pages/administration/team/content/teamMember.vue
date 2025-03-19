@@ -12,12 +12,18 @@
                     </tr>
                 </thead>
                 <tbody v-if="!isEmpty">
-                </tbody>
-                <tbody v-else>
-                    <tr class="text-center">
-                        No record
+                    <tr v-for="(staff, index) in staffList" :key="index">
+                        <td>{{ staff.full_name }}</td>
+                        <td>{{ staff.assigned }}</td>
+                        <td>{{ staff.resolved }}</td>
                     </tr>
                 </tbody>
+
+                <tbody v-else>
+                        <tr>
+                            <td colspan="8" class="text-center">No Data Record</td>
+                        </tr>
+                    </tbody>
             </table>
         </div>
 
@@ -25,16 +31,32 @@
 </template>
 
 <script>
-export default
-{
-    data()
-    {
-        return{
+import apiClient from "@/services/authorization";
+
+export default {
+    data() {
+        return {
+            staffList: [],
             isEmpty: true,
-        }
-    }
-}
+        };
+    },
+    created() {
+        this.loadStaff();
+    },
+    methods: {
+        async loadStaff() {
+            try {
+                const response = await apiClient.get("/staff-accounts");
+                this.staffList = response.data;
+                this.isEmpty = this.staffList.length === 0;
+            } catch (error) {
+                console.error("Error fetching staff:", error);
+            }
+        },
+    },
+};
 </script>
+
 
 <style scoped>
 .table-header {
