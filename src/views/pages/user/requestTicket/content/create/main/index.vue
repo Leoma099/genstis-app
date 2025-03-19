@@ -13,6 +13,8 @@
 
             <form @submit.prevent="submit()">
 
+                <h3 class="text-secondary">{{ form.ticket_order }}</h3>
+
                 <div class="form-group mb-3">
                     <label for="" class="form-label">* Subject:</label>
                     <select name="" id="" class="form-select form-select-sm rounded-0" v-model="form.subject">
@@ -92,6 +94,7 @@ export default
         return{
             form:
             {
+                ticket_order: "",
                 full_name: "",
                 school_number: "",
                 subject: "0",
@@ -104,6 +107,7 @@ export default
                 attachment_photo: "null",
             },
             isLoading: false,  // Track if the login is in progress
+            ticketCount: 1, // Initialize ticket counter
         }
     },
 
@@ -116,15 +120,26 @@ export default
             alert("You must be logged in to submit a ticket.");
             this.$router.push("/login");
         }
+
+        this.form.ticket_order = this.generateTicketNumber();
     },
 
     mounted()
     {
-        this.toast = useToast()
+        this.toast = useToast();
+        this.form.ticket_order = this.generateTicketNumber();
     },
 
     methods:
     {
+        generateTicketNumber()
+        {
+            // Generate ticket number in the format TO#00001
+            const ticketNumber = `TO#${Math.ceil(Math.random() * 10000)}`;
+            this.form.ticket_order = ticketNumber; // Assign to form.ticket_order
+            return ticketNumber;
+        },
+
         getCurrentDate()
         {
             const today = new Date();
@@ -148,13 +163,19 @@ export default
 
         async submit()
         {
-            this.isLoading = true; // Show loading spinner when login starts
-            try
-            {
+            this.isLoading = true;
+
+            // Ensure ticket_order is not empty
+            if (!this.form.ticket_order) {
+                this.form.ticket_order = this.generateTicketNumber();
+            }
+
+            try {
                 let formData = new FormData();
-                formData.append("account_id", this.form.account_id);  // Automatically fetched
-                formData.append("full_name", this.form.full_name);    // Automatically fetched
-                formData.append("school_number", this.form.school_number);  // Automatically fetched
+                formData.append("ticket_order", this.form.ticket_order); // Make sure it's included
+                formData.append("account_id", this.form.account_id);
+                formData.append("full_name", this.form.full_name);
+                formData.append("school_number", this.form.school_number);
                 formData.append("subject", this.form.subject);
                 formData.append("department", this.form.department);
                 formData.append("priority_level", this.form.priority_level);
@@ -167,24 +188,19 @@ export default
                 }
 
                 const response = await apiClient.post("/ticket", formData);
-
                 console.log(response.data);
                 this.toast.success("Request ticket created successfully!");
                 setTimeout(() => {
                     this.$router.push('/user/request-ticket');
                 }, 1000);
-            }
-            catch(error)
-            {
-                this.toast.error("Request ticket created unsuccessfully!");
+            } catch (error) {
+                this.toast.error("Request ticket creation failed!");
                 console.error("Error occurred:", error);
+            } finally {
+                this.isLoading = false;
             }
-            finally
-            {
-                this.isLoading = false; // Hide the loading spinner after login is complete
-            }
-
         }
+
 
     }
 }

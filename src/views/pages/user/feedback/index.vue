@@ -1,37 +1,34 @@
 <template>
 
-    <div class="animate animate-fade-in">
+    <div class="animation animation-fade-in">
 
-        <div class="d-flex justify-content-between align-items-center">
-            <p class="page-title mb-0">FEEDBACK</p>
-        </div>
-
-        <div class="mt-4">
-            <ticket-list/>
-        </div>
+        <list-component v-if="$route.meta.page === 'list'" />
+        <create-component v-if="$route.meta.page === 'create'" />
+        <edit-component v-if="$route.meta.page === 'edit'" />
+        <view-component v-if="$route.meta.page === 'view'" />
 
     </div>
 
 </template>
 
 <script>
-import TicketList from "./content/ticket-list.vue";
+import ListComponent from './content/list';
 export default
 {
     components:
     {
-        TicketList,
-    }
+        ListComponent,
+    },
 }
 </script>
 
 <style scoped>
-.animate
+.animation
 {
     animation-duration: 1s;
     animation-fill-mode: none;
 }
-.animate-fade-in
+.animation-fade-in
 {
     animation-name: fadeIn;
 }
@@ -43,14 +40,5 @@ export default
     to{
         opacity: 1;
     }
-}
-.page-title {
-    font-weight: 600;
-    font-size: 1.5rem;
-    color: #a200ff;
-}
-.button-color {
-    background-color: #a200ff;
-    color: #ffffff;
 }
 </style>

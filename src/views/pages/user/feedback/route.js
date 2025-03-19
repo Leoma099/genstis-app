@@ -1,14 +1,52 @@
 export default [
     {
         path: '/user/feedback',
-
-        name: 'user / Feedback',
-
+        name: 'User / Feedback',
         component: () => import('@/views/pages/user/feedback'),
-
         meta:
         {
-            name: 'Feedback'
-        }
+            name: 'Request Feedback',
+            page: 'list',
+        },
+        children:
+            [
+                {
+                    path: 'create',
+                    name: 'Create Feedback / Feedback',
+                    component: () => import('@/views/pages/user/feedback'),
+                    meta:
+                    {
+                        name: 'Create Feedback',
+                        page: 'create',
+                        subPage: 'main',
+                    },
+                },
+                {
+                    path: ':code',
+                    name: 'View Feedback / Feedback',
+                    component: () => import('@/views/pages/user/feedback'),
+                    meta:
+                    {
+                        name: 'View Feedback',
+
+                        page: 'view',
+                    },
+                    children:
+                        [
+                            {
+                                path: 'edit',
+                                name: 'Edit Feedback / Feedback',
+                                component: () => import('@/views/pages/user/feedback'),
+                                meta:
+                                {
+                                    name: 'Edit Feedback',
+
+                                    page: 'edit',
+                                    subPage: 'main',
+                                },
+                            },
+                        ],
+                },
+            ],
     },
 ];

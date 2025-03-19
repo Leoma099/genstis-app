@@ -19,6 +19,7 @@
                 <table class="table table-bordered table-hover mb-0">
                     <thead>
                         <tr>
+                            <th class="table-header">TICKET ORDER</th>
                             <th class="table-header">SUBJECT</th>
                             <th class="table-header">STATUS</th>
                             <th class="table-header">ASIGNEE</th>

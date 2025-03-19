@@ -1,5 +1,6 @@
 <template>
     <tr>
+        <td class="table-data">{{ item.ticket_order }}</td>
         <td class="table-data">{{ formatSubject(item.subject) }}</td>
         <td class="table-data">{{ formatStatus(item.status) }}</td>
         <td class="table-data">{{ formatAsignee(item.assigned_by) }}</td>
