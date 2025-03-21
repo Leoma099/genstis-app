@@ -52,7 +52,7 @@
 
                 <div class="mb-3">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-7">
                             <div class="form-group mb-3">
                                 <label class="form-label">* Subject:</label>
                                 <select class="form-select form-select-sm rounded-0" v-model="form.subject" required>
@@ -69,26 +69,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group mb-3">
-                                <label class="form-label">* Photo:</label>
-                                <input type="file" class="form-control form-control-sm rounded-0" @change="handleFileUpload">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label class="form-label">* Assigned To:</label>
-                        <select class="form-select form-select-sm rounded-0" v-model="form.assigned_by" required>
-                            <option value="0" disabled>-- Select Staff --</option>
-                            <option value="1">Robert John Javani Minimo</option>
-                            <option value="2">Jacob R Canlas</option>
-                            <option value="3">Jeryc Erjy Mapilisan</option>
-                        </select>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group mb-3">
                                 <label class="form-label">* Priority Level:</label>
                                 <select class="form-select form-select-sm rounded-0" v-model="form.priority_level" required>
@@ -100,19 +81,11 @@
                                 </select>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="col-md-6">
-                            <div class="form-group mb-3">
-                                <label class="form-label">* Status:</label>
-                                <select class="form-select form-select-sm rounded-0" v-model="form.status" required>
-                                    <option value="0" disabled>-- Select Status --</option>
-                                    <option value="1">Pending</option>
-                                    <option value="2">In-Progress</option>
-                                    <option value="3">Resolved</option>
-                                    <option value="4">Not Completed</option>
-                                </select>
-                            </div>
-                        </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label">* Photo:</label>
+                        <input type="file" class="form-control form-control-sm rounded-0" @change="handleFileUpload">
                     </div>
 
                     <div class="form-group mb-3">
@@ -213,7 +186,7 @@ export default
 
             try
             {
-                const response = await apiClient.post("/ticket", formData);
+                const response = await apiClient.post("/ticket/walkin", formData);
                 setTimeout(() => {
                     this.$router.push('/administration/ticket-management');
                 }, 1000);

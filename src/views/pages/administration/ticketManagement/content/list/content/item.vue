@@ -29,7 +29,7 @@
         </td>
         <td class="table-data">
             <router-link
-                :to="`/administration/ticket-management/${item.id}`"
+                :to="`/administration/ticket-management/${item.id}/edit`"
                 class="btn btn-outline-info btn-sm me-3"
                 ><i class="bx bx-show"></i>
             </router-link>

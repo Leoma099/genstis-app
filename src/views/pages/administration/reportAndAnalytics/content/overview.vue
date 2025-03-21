@@ -108,6 +108,8 @@ export default
     created()
     {
         this.loadData();
+        this.fetchStatusData();
+        this.fetchPriorityLevelData();
     },
 
     methods:
@@ -116,8 +118,42 @@ export default
         {
             try
             {
-                const ticketResponse = await apiClient.get("/ticket");
-                this.ticket = ticketResponse.data;
+                const response = await apiClient.get("/ticket");
+                this.ticket = response.data;
+            }
+            catch(error)
+            {
+                console.error("Error loading data:", error);
+            }
+        },
+
+        async fetchStatusData()
+        {
+            try
+            {
+                const response = await apiClient.get("/ticketStat");
+
+                this.totalPending = response.data.pending;
+                this.totalProgress = response.data.inProgress;
+                this.totalResolved = response.data.resolved;
+                this.totalUnresolved = response.data.unresolved;
+            }
+            catch(error)
+            {
+                console.error("Error loading data:", error);
+            }
+        },
+
+        async fetchPriorityLevelData()
+        {
+            try
+            {
+                const response = await apiClient.get("/ticketStats");
+
+                this.totalLow = response.data.low;
+                this.totalMedium = response.data.medium;
+                this.totalHigh = response.data.high;
+                this.totalEmergency = response.data.emergency;
             }
             catch(error)
             {
