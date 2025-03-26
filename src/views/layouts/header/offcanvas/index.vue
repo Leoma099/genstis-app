@@ -29,9 +29,9 @@ export default
     },
     methods:
     {
-        addNotification(message) {
-        // Add the notification message to the list
-        this.notifications.push(message);
+        addNotification(message)
+        {
+            this.notifications.push(message);
         },
     },
 };

@@ -80,7 +80,7 @@
   
           // Assuming ticket data has a "status" or a similar property to indicate if the ticket is resolved
           this.resolvedTickets = this.ticket.filter(ticket => ticket.status === 3).length;
-          this.notCompletedTickets = this.ticket.filter(ticket => ticket.status !== 4).length;
+          this.notCompletedTickets = this.ticket.filter(ticket => ticket.status === 4).length;
   
           console.log(accountResponse.data);
         } catch (error) {

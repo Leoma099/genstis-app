@@ -4,13 +4,13 @@
             {{ item.ticket_order }}
         </td>
         <td class="table-data">
+            {{ formatSubject(item.subject) }}
+        </td>
+        <td class="table-data">
             {{ formatDepartment(item.department) }}
         </td>
         <td class="table-data">
             {{ item.full_name }}
-        </td>
-        <td class="table-data">
-            {{ formatSubject(item.subject) }}
         </td>
         <td class="table-data">
             {{ formatPriorityLevel(item.priority_level) }}
@@ -19,7 +19,9 @@
             {{ formatAsignee(item.assigned_by) }}
         </td>
         <td class="table-data">
-            {{ formatStatus(item.status) }}
+            <span :class="formatStatus(item.status).badgeClass">
+                {{ formatStatus(item.status).label }}
+            </span>
         </td>
         <td class="table-data">
             {{ item.request_date }}
@@ -31,7 +33,7 @@
             <router-link
                 :to="`/administration/ticket-management/${item.id}/edit`"
                 class="btn btn-outline-info btn-sm me-3"
-                ><i class="bx bx-show"></i>
+                ><i class="bx bx-edit"></i>
             </router-link>
 
             <button
@@ -46,6 +48,13 @@ import apiClient from "@/services/authorization";
 import { useToast } from "vue-toastification";
 export default
 {
+    data()
+    {
+        return {
+            staffs: [] // Initialize as an empty array
+        };
+    },
+
     props:
     {
         item: Object,
@@ -54,199 +63,83 @@ export default
 
     mounted()
     {
-        this.toast = useToast()
+        this.toast = useToast();
+        this.fetchStaffs();
     },
 
     methods:
     {
         formatDepartment(department)
         {
-            if(department === 1)
+            const departments =
             {
-                return "CBA - College of Business and Administration";
-            }
-            else if(department === 2)
-            {
-                return "CASED - College of Arts and Science Education";
-            }
-            else if(department === 3)
-            {
-                return "Registrar";
-            }
-            else if(department === 4)
-            {
-                return "Payroll";
-            } 
-            else if(department === 5)
-            {
-                return "Accounting Finance";
-            }
-            else if(department === 6)
-            {
-                return "Quality Assurance";
-            }
-            else if(department === 7)
-            {
-                return "AASS";
-            }
-            else if(department === 8)
-            {
-                return "HR - Human Resource";
-            }
-            else if(department === 9)
-            {
-                return "MIS Office";
-            }
-            else if(department === 10)
-            {
-                return "Rikdo Office";
-            }
-            else if(department === 11)
-            {
-                return "Graduate School";
-            }
-            else if(department === 12)
-            {
-                return "Museum";
-            } 
-            else if(department === 13)
-            {
-                return "Library";
-            }
-            else if(department === 14)
-            {
-                return "Sewing";
-            }
-            else if(department === 15)
-            {
-                return "Principal Office";
-            }
-            else if(department === 16)
-            {
-                return "CESO Office";
-            }
-            else if(department === 17)
-            {
-                return "Cashier";
-            } 
-            else if(department === 18)
-            {
-                return "CCS - College of Computer Studies";
-            }                                               
-            else
-            {
-                return "n/a";
-            }
+                1: "CBA - College of Business and Administration",
+                2: "CASED - College of Arts and Science Education",
+                3: "Registrar",
+                4: "Payroll",
+                5: "Accounting Finance",
+                6: "Quality Assurance",
+                7: "AASS",
+                8: "HR - Human Resource",
+                9: "MIS Office",
+                10: "Rikdo Office",
+                11: "Graduate School",
+                12: "Museum",
+                13: "Library",
+                14: "Sewing",
+                15: "Principal Office",
+                16: "CESO Office",
+                17: "Cashier",
+                18: "CCS - College of Computer Studies",
+            };
+            return departments[department] || "N/A";
         },
+
         formatSubject(subject)
         {
-            if(subject === 1)
-            {
-                return "Desktop Computer";
-            }
-            else if(subject === 2)
-            {
-                return "Laptop Computer";
-            }
-            else if(subject === 3)
-            {
-                return "Printer Services";
-            }
-            else if(subject === 4)
-            {
-                return "Software Installation";
-            }
-            else if(subject === 5)
-            {
-                return "Internet Connection";
-            }
-            else if(subject === 6)
-            {
-                return "Wireless Connection";
-            }
-            else if(subject === 7)
-            {
-                return "New User (Microsoft Account)";
-            }
-            else if(subject === 8)
-            {
-                return "Login Issues";
-            }
-            else if(subject === 9)
-            {
-                return "Other";
-            }
-            else
-            {
-                return "n/a";
-            }
+            const subjects = {
+                1: "Desktop Computer",
+                2: "Laptop Computer",
+                3: "Printer Services",
+                4: "Software Installation",
+                5: "Internet Connection",
+                6: "Wireless Connection",
+                7: "New User (Microsoft Account)",
+                8: "Login Issues",
+                9: "Other"
+            };
+            return subjects[subject] || "N/A";
         },
+
         formatPriorityLevel(priority_level)
         {
-            if(priority_level === 1)
+            const priority_levels =
             {
-                return "Low";
-            }
-            else if(priority_level === 2)
-            {
-                return "Medium";
-            }
-            else if(priority_level === 3)
-            {
-                return "High";
-            }
-            else if(priority_level === 4)
-            {
-                return "Emergency";
-            }
-            else
-            {
-                return "n/a";
-            }
+                1: "Low",
+                2: "Medium",
+                3: "High",
+                4: "Emergency"
+            };
+            return priority_levels[priority_level] || "N/A";
         },
 
         formatStatus(status)
         {
-            if(status === 1)
+            const statuses =
             {
-                return "Pending";
-            }
-            else if(status === 2)
-            {
-                return "In-Progress";
-            }
-            else if(status === 3)
-            {
-                return "Resolved";
-            }
-            else if(status === 4)
-            {
-                return "Unresolved";
-            }
-            else
-            {
-                return "n/a";
-            }
+                1: { label: "Pending", badgeClass: "badge text-bg-light" },  // Yellow
+                2: { label: "In-Progress", badgeClass: "badge text-bg-primary" }, // Blue
+                3: { label: "Resolved", badgeClass: "badge text-bg-success" }, // Green
+                4: { label: "Unresolved", badgeClass: "badge text-bg-danger" } // Red
+            };
+            return statuses[status] || { label: "n/a", badgeClass: "badge bg-secondary" };
         },
 
-        formatAsignee(asigned_by)
+        formatAsignee(staffId)
         {
-            if(asigned_by === 1)
-            {
-                return "Robert John Javani Minimo";
-            }
-            else if(asigned_by === 2)
-            {
-                return "Jacob R Canlas";
-            }
-            else if(asigned_by === 3)
-            {
-                return "Jeryc Erjy Mapilisan";
-            }
-            else
-            {
-                return "n/a";
-            }
+            // Find the staff member whose ID matches the assigned_by ID
+            const staff = this.staffs.find(staff => staff.id === staffId);
+            return staff ? staff.full_name : "N/A";  // If a match is found, return the staff's full name, otherwise return "N/A"
         },
 
         async deleteTicket()
@@ -266,6 +159,21 @@ export default
             {
                 console.error("Error deleteing:", error);
                 this.toast.error("Ticket deleted unsuccessfully!")
+            }
+        },
+
+        async fetchStaffs()
+        {
+
+            try
+            {
+                const response = await apiClient.get("/get-staff");
+                this.staffs = response.data;  // Assign the response data directly to `staffs`
+                console.log(this.staffs);  // Log the fetched staff data to check
+            }
+            catch(error)
+            {
+                console.error("Error fetching staffs:", error);
             }
         }
     }

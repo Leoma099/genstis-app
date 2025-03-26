@@ -1,7 +1,7 @@
 <template>
     <div class="card card-body shadow-sm border-0 rounded-0">
-        <p class="mb-0">Statistics</p>
-        <div class="metric-chart">
+        <p class="page-title mb-0">Number of Tickets</p>
+        <div class="metric-chart mt-3">
             <canvas ref="lineReport" height="300"></canvas>
         </div>
     </div>
@@ -129,5 +129,11 @@ export default
 {
     height: 300px;
     padding: 20px;
+}
+.page-title
+{
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: #a200ff;
 }
 </style>

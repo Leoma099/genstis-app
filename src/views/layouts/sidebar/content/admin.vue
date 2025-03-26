@@ -30,9 +30,15 @@
         </router-link>
     </li>
 
+    <li>
+        <router-link :to="'/administration/customer-feedback'">
+            <i class="bx bxs-group"></i>Customer Feedback
+        </router-link>
+    </li>
+
     <!-- <li>
-        <router-link :to="'/administration/team'">
-            <i class="bx bxs-cog"></i>Setting
+        <router-link :to="'/administration/operator'">
+            <i class="bx bxs-cog"></i>Operator
         </router-link>
     </li> -->
 

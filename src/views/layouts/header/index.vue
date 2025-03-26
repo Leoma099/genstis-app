@@ -16,15 +16,6 @@
               aria-controls="offcanvasRight">
               <i class="bx bxs-bell"></i>
             </a>
-            <!-- <div class="icon-badge notification-container" @click="toggleDropdown">
-                <i class="bx bxs-bell"></i>
-                <span class="badge">{{ notifications.length }}</span>
-
-                <ul v-show="dropdownOpen" class="dropdown" :class="{ 'scrollable': notifications.length >= 20 }">
-                    <li v-if="notifications.length === 0" class="empty">No new notifications</li>
-                    <li v-for="(notification, index) in notifications" :key="index">{{ notification }}</li>
-                </ul>
-            </div> -->
 
             <!-- Profile Icon -->
             <router-link :to="'/my-account'" class="profile">

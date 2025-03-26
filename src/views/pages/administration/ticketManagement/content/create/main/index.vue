@@ -89,16 +89,6 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="form-label">* Request Date:</label>
-                        <input
-                            type="date"
-                            class="form-control form-control-sm rounded-0"
-                            v-model="form.request_date"
-                            required
-                        />
-                    </div>
-
-                    <div class="form-group mb-3">
                         <label class="form-label mb-0">* Problem Description:</label>
                         <textarea
                             class="form-control form-control-sm rounded-0"

@@ -22,9 +22,6 @@
             {{ item.description }}
         </td>
         <td class="table-data">
-            {{ formatAsignee(item.assigned_by) }}
-        </td>
-        <td class="table-data">
             {{ formatStatus(item.status) }}
         </td>
         <td class="table-data">
@@ -35,9 +32,9 @@
         </td>
         <td class="table-data">
             <router-link
-                :to="`/staff/ticket-management/${item.id}`"
+                :to="`/staff/ticket-management/${item.id}/edit`"
                 class="btn btn-outline-info btn-sm me-3"
-                ><i class="bx bx-show"></i>
+                ><i class="bx bx-edit"></i>
             </router-link>
 
             <button

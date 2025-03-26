@@ -1,9 +1,4 @@
 <template>
-    <div class="d-flex align-items-center mb-3">
-        <p class="mb-0 me-3"><strong>Total Tickets:</strong></p>
-        <p class="mb-0">{{ totalTickets }}</p>
-    </div>
-
     <!-- This is overview and high level metrics -->
      <div class="row mb-3">
         <div class="col-md-3">

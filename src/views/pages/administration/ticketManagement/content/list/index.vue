@@ -32,8 +32,8 @@
                         <thead>
                             <tr>
                                 <th class="table-header">TICKET ORDER</th>
-                                <th class="table-header">DEPARTMENT</th>
                                 <th class="table-header">CLIENT NAME</th>
+                                <th class="table-header">DEPARTMENT</th>
                                 <th class="table-header">SUBJECT</th>
                                 <th class="table-header">PRIORITY</th>
                                 <th class="table-header">ASSIGNEE</th>

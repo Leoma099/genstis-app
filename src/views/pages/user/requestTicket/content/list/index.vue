@@ -20,12 +20,13 @@
                     <thead>
                         <tr>
                             <th class="table-header">TICKET ORDER</th>
+                            <th class="table-header">DEPARTMENT</th>
                             <th class="table-header">SUBJECT</th>
-                            <th class="table-header">STATUS</th>
                             <th class="table-header">ASIGNEE</th>
+                            <th class="table-header">STATUS</th>
                             <th class="table-header">REQUEST DATE</th>
                             <th class="table-header">COMPLETED DATE</th>
-                            <th class="table-header">ACTION</th>
+                            <!-- <th class="table-header">ACTION</th> -->
                         </tr>
                     </thead>
                     <tbody>

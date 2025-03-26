@@ -39,8 +39,8 @@
         type="button"
         class="btn btn-primary position-relative rounded-0"
         data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasRight"
-        aria-controls="offcanvasRight"
+        data-bs-target="#operatorOffcanvas"
+        aria-controls="operatorOffcanvas"
         @click="resetNotificationCount">
         Inbox
         <!-- Notification badge -->

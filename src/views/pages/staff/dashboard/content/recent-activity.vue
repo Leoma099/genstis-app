@@ -1,12 +1,13 @@
 <template>
+
+    <p class="page-title">Recent User</p>
   
     <div class="card card-body shadow-sm border-0 rounded-0">
-        <p class="mb-3">Users</p>
 
         <div class="activity-list">
 
             <div class="table-responsive">
-                <table class="table table-borderless table-hover mb-0">
+                <table class="table table-bordered table-hover mb-0">
                     <thead>
                         <tr>
                             <th class="table-header">USERNAME</th>
@@ -73,7 +74,7 @@ export default
 
 <style scoped>
 .activity-list {
-    height: 300px;
+    height: auto;
 }
 .page-title {
     font-weight: 600;

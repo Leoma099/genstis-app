@@ -78,16 +78,6 @@
                         </div>
                     </div>
 
-                    <!-- <div class="form-group mb-3">
-                        <label class="form-label">* Assigned To:</label>
-                        <select class="form-select form-select-sm rounded-0" v-model="form.assigned_by" required>
-                            <option value="0" disabled>-- Select Staff --</option>
-                            <option value="1">Robert John Javani Minimo</option>
-                            <option value="2">Jacob R Canlas</option>
-                            <option value="3">Jeryc Erjy Mapilisan</option>
-                        </select>
-                    </div> -->
-
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mb-3">
@@ -223,7 +213,7 @@ export default
                 console.log("Ticket update successfully:", response.data);
                 this.toast.success("Ticket updated successfully!");
                 setTimeout(() => {
-                    this.$router.push("/administration/ticket-management");
+                    this.$router.push("/staff/ticket-management");
                 }, 1000)
             }
             catch(error)

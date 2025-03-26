@@ -23,13 +23,20 @@
 
     <div class="mt-4">
         <div class="row">
-            <div class="col-md-8">
-                <statistics-component />
+            <div class="col-md-4">
+                <status-component />
             </div>
             <div class="col-md-4">
-                <tickets-component />
+                <priority-component />
+            </div>
+            <div class="col-md-4">
+                <asignee-component />
             </div>
         </div>
+    </div>
+
+    <div class="mt-4">
+        <statistics-component />
     </div>
 
     <div class="mt-4">
@@ -45,7 +52,9 @@ import OverviewComponent from "./content/overview.vue";
 import FilterModal from "./components/modal/index.vue";
 import ResolvedByStaffComponent from './content/resolvedByStaff.vue';
 import StatisticsComponent from "./content/ticketStatistic.vue";
-import TicketsComponent from "./content/statusStatistic.vue";
+import StatusComponent from "./content/status.vue";
+import PriorityComponent from "./content/priority.vue";
+import AsigneeComponent from "./content/asignee.vue";
 export default
 {
     components:
@@ -54,7 +63,9 @@ export default
         FilterModal,
         ResolvedByStaffComponent,
         StatisticsComponent,
-        TicketsComponent,
+        StatusComponent,
+        PriorityComponent,
+        AsigneeComponent
     }
 }
 </script>

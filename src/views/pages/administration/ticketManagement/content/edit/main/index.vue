@@ -18,13 +18,13 @@
                             class="form-control form-control-sm rounded-0"
                             placeholder="ex. Juan Dela Cruz"
                             v-model="form.full_name"
-                            required
+                            disabled
                         />
                     </div>
 
                     <div class="form-group mb-3">
                         <label class="form-label">* Department:</label>
-                        <select class="form-select form-select-sm rounded-0" v-model="form.department" required>
+                        <select class="form-select form-select-sm rounded-0" v-model="form.department" disabled>
                             <option value="0" disabled>-- Select Department --</option>
                             <option value="1">CBA - College of Business and Administration</option>
                             <option value="2">CASED - College of Arts and Science Education</option>
@@ -55,7 +55,7 @@
                         <div class="col-md-8">
                             <div class="form-group mb-3">
                                 <label class="form-label">* Subject:</label>
-                                <select class="form-select form-select-sm rounded-0" v-model="form.subject" required>
+                                <select class="form-select form-select-sm rounded-0" v-model="form.subject" disabled>
                                     <option value="0" disabled>-- Select Issue --</option>
                                     <option value="1">Desktop Computer</option>
                                     <option value="2">Laptop Computer</option>
@@ -72,7 +72,7 @@
                         <div class="col-md-4">
                             <div class="form-group mb-3">
                                 <label class="form-label">* Photo:</label>
-                                <input type="file" class="form-control form-control-sm rounded-0" @change="handleFileUpload">
+                                <input type="file" class="form-control form-control-sm rounded-0" @change="handleFileUpload" disabled>
                             </div>
                         </div>
                     </div>
@@ -80,10 +80,10 @@
                     <div class="form-group mb-3">
                         <label class="form-label">* Assigned To:</label>
                         <select class="form-select form-select-sm rounded-0" v-model="form.assigned_by" required>
-                            <option value="0" disabled>-- Select Staff --</option>
-                            <option value="1">Robert John Javani Minimo</option>
-                            <option value="2">Jacob R Canlas</option>
-                            <option value="3">Jeryc Erjy Mapilisan</option>
+                            <option value="" disabled selected>-- Select Staff --</option>
+                            <option v-for="(staff, index) in staffs" :key="index" :value="staff.id">
+                                {{ staff.full_name }}
+                            </option>
                         </select>
                     </div>
 
@@ -91,7 +91,7 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label class="form-label">* Priority Level:</label>
-                                <select class="form-select form-select-sm rounded-0" v-model="form.priority_level" required>
+                                <select class="form-select form-select-sm rounded-0" v-model="form.priority_level" disabled>
                                     <option value="0" disabled>-- Select Level --</option>
                                     <option value="1">Low</option>
                                     <option value="2">Medium</option>
@@ -123,7 +123,7 @@
                                     type="date"
                                     class="form-control form-control-sm rounded-0"
                                     v-model="form.request_date"
-                                    required
+                                    disabled
                                 />
                             </div>
                         </div>
@@ -145,7 +145,7 @@
                             class="form-control form-control-sm rounded-0"
                             placeholder="Describe your problem in detail"
                             v-model="form.description"
-                            required
+                            disabled
                         ></textarea>
                     </div>
                 </div>
@@ -186,6 +186,7 @@ export default
                 photo: null,
             },
             isLoading: false,  // Track if the login is in progress
+            staffs: [],
 
         }
     },
@@ -193,12 +194,27 @@ export default
     mounted()
     {
         console.log("Route ID:", this.$route.params.id);
+        this.fetchStaffData();
         this.fetchBorrowData();
         this.toast = useToast();
     },
 
     methods:
     {
+        async fetchStaffData()
+        {
+            try
+            {
+                const staffResponse = await apiClient.get('/get-staff'); // Assuming '/staff' endpoint provides staff data
+                this.staffs = staffResponse.data; // Store staff data in the `staffs` array
+                console.log("Fetched staff data:", this.staffs);
+            }
+            catch(error)
+            {
+                console.error("Error occured fetching staff data:", error);
+            }
+        },
+
         async fetchBorrowData()
         {
             try

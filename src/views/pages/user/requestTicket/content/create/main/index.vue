@@ -36,10 +36,23 @@
                     <select name="" id="" class="form-select form-select-sm rounded-0" v-model="form.department">
                         <option value="0" disabled>-- Select Department --</option>
                         <option value="1">CBA - College of Business and Administration</option>
-                        <option value="2">CASED - College of Arts and Science Educations</option>
+                        <option value="2">CASED - College of Arts and Science Education</option>
                         <option value="3">Registrar</option>
-                        <option value="4">Cashier</option>
-                        <option value="5">Accounting</option>
+                        <option value="4">Payroll</option>
+                        <option value="5">Accounting Finance</option>
+                        <option value="6">Quality Assurance</option>
+                        <option value="7">AASS</option>
+                        <option value="8">HR - Human Resource</option>
+                        <option value="9">MIS Office</option>
+                        <option value="10">Rikdo Office</option>
+                        <option value="11">Graduate School Office</option>
+                        <option value="12">Museum</option>
+                        <option value="13">Library</option>
+                        <option value="14">Sewing</option>
+                        <option value="15">Principal Office</option>
+                        <option value="16">CESO Office</option>
+                        <option value="17">Cashier</option>
+                        <option value="18">CCS - College of Computer Studies</option>
                     </select>
                 </div>
 
@@ -55,19 +68,14 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <label class="form-label">* Request Date:</label>
-                    <input type="date" class="form-control form-control-sm rounded-0" placeholder="ex. Juan Dela Cruz" v-model="form.request_date">
-                </div>
-
-                <div class="form-group mb-3">
                     <label class="form-label mb-0">* Problem Description:</label>
                     <textarea name="" id="" cols="30" rows="5" class="form-control form-control-sm rounded-0" placeholder="ex. Your problem in detail" v-model="form.description"></textarea>
                 </div>
 
-                <div class="form-group mb-3">
+                <!-- <div class="form-group mb-3">
                     <label class="form-label mb-0">* Attachment:</label>
                     <input type="file" class="form-control form-control-sm rounded-0" @change="handleFileUpload">
-                </div>
+                </div> -->
 
                 <div class="text-end">
 

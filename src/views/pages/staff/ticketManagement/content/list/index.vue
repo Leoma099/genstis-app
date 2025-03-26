@@ -4,7 +4,6 @@
 
         <div class="d-flex justify-content-between align-items-center">
             <p class="page-title mb-0">Ticket Lists</p>
-            
         </div>
 
         <div class="mt-4">
@@ -12,13 +11,6 @@
             <div class="card card-body shadow-sm border-0 rounded-0">
 
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div>
-                        <router-link
-                            :to="'/staff/ticket-management/create'"
-                            class="btn rounded-0 button-color">
-                            Create New Ticket
-                        </router-link>
-                    </div>
                     <div class="col-3">
                         <input
                             type="search"
@@ -35,7 +27,6 @@
                                 <th class="table-header">SUBJECT</th>
                                 <th class="table-header">PRIORITY</th>
                                 <th class="table-header">DESCRIPTION</th>
-                                <th class="table-header">ASSIGNEE</th>
                                 <th class="table-header">STATUS</th>
                                 <th class="table-header">REQUEST DATE</th>
                                 <th class="table-header">COMPLETED DATE</th>
@@ -95,7 +86,7 @@ export default
                 this.isLoading = true;
                 setTimeout(async () => {
 
-                    const response = await apiClient.get('/ticket');
+                    const response = await apiClient.get('/ticketAssigned');
                     this.items = response.data;
                     console.log("Fetch ticket successfully:", response.data);
 

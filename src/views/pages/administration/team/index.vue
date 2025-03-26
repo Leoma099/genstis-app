@@ -2,15 +2,19 @@
 
     <div class="animate animate-fade-in">
 
-        <p class="page-title mb-0 me-3">TEAM</p>
+        <p class="page-title mb-0">TEAM</p>
 
-        <div class="row mb-3">
-            <asigned-ticket-component />
+        <div class="mt-4">
 
-            <customer-satisfaction-component />
+            <div class="row mb-3">
+                <asigned-ticket-component />
+
+                <customer-satisfaction-component />
+            </div>
+
+            <team-member-component />
+
         </div>
-
-        <team-member-component />
 
     </div>
 

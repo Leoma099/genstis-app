@@ -4,7 +4,6 @@
 
         <div class="d-flex justify-content-between align-items-center">
             <p class="page-title mb-0">DASHBOARD</p>
-            <router-link :to="'/administration/ticket-management/create'" class="btn rounded-0 button-color">Create New Ticket</router-link>
         </div>
 
         <div class="mt-4">
@@ -22,10 +21,6 @@
             </div>
         </div>
 
-        <div class="mt-4">
-            <recent-activity />
-        </div>
-
     </div>
 
 </template>
@@ -34,7 +29,6 @@
 import SystemOverview from "./content/system-overview.vue";
 import StatisticsComponent from "./content/statistics";
 import TicketsComponent from "./content/tickets";
-import RecentActivity from './content/recent-activity.vue';
 export default
 {
     components:
@@ -42,7 +36,6 @@ export default
         SystemOverview,
         StatisticsComponent,
         TicketsComponent,
-        RecentActivity,
     }
 }
 </script>

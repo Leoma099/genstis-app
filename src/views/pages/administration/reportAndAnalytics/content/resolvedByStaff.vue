@@ -1,15 +1,7 @@
 <template>
     <div class="card card-body shadow-sm rounded-0 border-0">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <p class="mb-0"><strong>List of asignee</strong></p>
-            <div class="col-3">
-                <input
-                    type="search"
-                    class="form-control form-control-sm rounded-0"
-                    placeholder="Type your search here">
-            </div>
-        </div>
-        <div class="table-responsive">
+        <p class="page-title mb-0">List of Asigned</p>
+        <div class="table-responsive mt-3">
             <table class="table table-bordered table-hover mb-0">
                 <thead>
                     <tr>
@@ -281,5 +273,11 @@ export default
     padding: 10px;
     background-color: #a200ff;
     color: #ffffff;
+}
+.page-title
+{
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: #a200ff;
 }
 </style>
