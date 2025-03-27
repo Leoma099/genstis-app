@@ -41,6 +41,7 @@
                                 <th class="table-header">REQUEST DATE</th>
                                 <th class="table-header">COMPLETED DATE</th>
                                 <th class="table-header">ACTION</th>
+                                <th class="table-header">PERMISSION</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,7 +49,9 @@
                              v-for="(item, index) in items"
                              :key="index"
                              :item="item"
-                             :isLoading="isLoading"/>
+                             :isLoading="isLoading"
+                             :selectItem="selectItem"
+                             :updateItem="updateItem"/>
                         </tbody>
                     </table>
                 </div>
@@ -74,6 +77,8 @@ export default
             ticketCount: 1, // Initialize ticket counter
             searchQuery: "",
             isLoading: false,
+
+            selectedItem: {},
 
         }
     },
@@ -110,6 +115,20 @@ export default
                 console.error("Fetch ticket failed:", error)
             }
         },
+
+        selectItem(item)
+        {
+            this.selectedItem = item;
+        },
+
+        updateItem(updatedData)
+        {
+            const ticket = this.items.find(row => row.id == this.selectedItem.id);
+
+            ticket.approval_status = updatedData.approval_status;
+            ticket.approved_by = updatedData.approved_by;
+            ticket.approved_date = updatedData.approved_date;
+        }
     }
 
 }

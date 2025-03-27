@@ -42,7 +42,7 @@ body {
     height: 100vh;
     overflow: hidden;
     background-color: var(--white);
-    z-index: 2;
+    z-index: 1;
     transition: transform 0.3s ease;
     display: flex;
     flex-direction: column;

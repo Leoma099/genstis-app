@@ -17,9 +17,9 @@
         </div>
     </div>
 
-    <div class="mt-4">
+    <!-- <div class="mt-4">
         <overview-component />
-    </div>
+    </div> -->
 
     <div class="mt-4">
         <div class="row">
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import OverviewComponent from "./content/overview.vue";
+// import OverviewComponent from "./content/overview.vue";
 import FilterModal from "./components/modal/index.vue";
 import ResolvedByStaffComponent from './content/resolvedByStaff.vue';
 import StatisticsComponent from "./content/ticketStatistic.vue";
@@ -59,7 +59,7 @@ export default
 {
     components:
     {
-        OverviewComponent,
+        // OverviewComponent,
         FilterModal,
         ResolvedByStaffComponent,
         StatisticsComponent,

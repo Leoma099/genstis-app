@@ -10,6 +10,9 @@
             </span>
         </td> -->
         <td class="table-data">
+            {{ item.ticket_order }}
+        </td>
+        <td class="table-data">
             {{ item.full_name }}
         </td>
         <td class="table-data">

@@ -11,7 +11,7 @@ export default [
         children:
             [
                 {
-                    path: 'create',
+                    path: ':code',
                     name: 'Create Feedback / Feedback',
                     component: () => import('@/views/pages/user/feedback'),
                     meta:

@@ -13,11 +13,13 @@
 
 <script>
 import ListComponent from './content/list';
+import CreateComponent from './content/create';
 export default
 {
     components:
     {
         ListComponent,
+        CreateComponent
     },
 }
 </script>

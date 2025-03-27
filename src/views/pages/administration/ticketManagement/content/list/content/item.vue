@@ -41,6 +41,47 @@
                 @click="deleteTicket()"><i class="bx bx-trash"></i>
             </button>
         </td>
+        <td class="table-data">
+            <button
+                v-if="[2,3].includes(item.approval_status)"
+                class="btn btn-outline-secondary btn-sm"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                data-bs-title="Re-assigned ticket"
+                @click="pendingStatus()"
+                :disabled="pendingStatusLoading">
+                <small v-if="!pendingStatusLoading">
+                    <i class='bx bx-refresh'></i>
+                </small>
+                <small v-else>
+                    Loading...
+                </small>
+            </button>
+
+            <button
+                v-if="[1].includes(item.approval_status)"
+                class="btn btn-outline-success btn-sm me-3"
+                @click="approveStatus()">
+                <small v-if="!approveStatusLoading">
+                    <i class='bx bxs-check-circle' ></i>
+                </small>
+                <small v-else>
+                    Loading...
+                </small>
+            </button>
+
+            <button
+                v-if="[1].includes(item.approval_status)"
+                class="btn btn-outline-warning btn-sm"
+                @click="cancelStatus()">
+                <small v-if="!cancelStatusLoading">
+                    <i class='bx bxs-x-circle'></i>
+                </small>
+                <small v-else>
+                    Loading...
+                </small>
+            </button>
+        </td>
     </tr>
 </template>
 <script>
@@ -51,14 +92,20 @@ export default
     data()
     {
         return {
-            staffs: [] // Initialize as an empty array
+            staffs: [], // Initialize as an empty array,
+
+            pendingStatusLoading: false,
+            approveStatusLoading: false,
+            cancelStatusLoading: false,
         };
     },
 
     props:
     {
         item: Object,
-        isLoading: Boolean
+        isLoading: Boolean,
+        selectItem: Function,
+        updateItem: Function,
     },
 
     mounted()
@@ -175,7 +222,87 @@ export default
             {
                 console.error("Error fetching staffs:", error);
             }
-        }
+        },
+
+        async pendingStatus()
+        {
+            this.selectItem(this.item);
+
+            this.pendingStatusLoading = true;
+            
+            const response = await apiClient.put(`/ticket/${this.item.id}/pending`);
+
+            this.pendingStatusLoading = false;
+
+            if (response.status == 200)
+            {
+                this.updateItem(response.data);
+
+                this.toast.success(`${this.item.ticket_order} is revert to pending.`)
+            }
+            else if (response.status == 403)
+            {
+                this.toast.danger("403");
+            }
+            else
+            {
+                this.toast.danger("Oops! Something went wrong.");
+            }
+        },
+
+        async approveStatus()
+        {
+            this.selectItem(this.item);
+
+            this.approveStatusLoading = true;
+            
+            const response = await apiClient.put(`/ticket/${this.item.id}/approve`);
+
+            this.approveStatusLoading = false;
+
+            if (response.status == 200)
+            {
+                this.updateItem(response.data);
+
+                this.toast.success(`${this.item.ticket_order} is now approved.`)
+            }
+            else if (response.status == 403)
+            {
+                this.toast.danger("403");
+            }
+            else
+            {
+                this.toast.danger("Oops! Something went wrong.");
+            }
+        },
+
+        async cancelStatus()
+        {
+            this.selectItem(this.item);
+
+            this.cancelStatusLoading = true;
+            
+            const response = await apiClient.put(`/ticket/${this.item.id}/cancel`);
+
+            this.cancelStatusLoading = false;
+
+            if (response.status == 200)
+            {
+                this.updateItem(response.data);
+
+                this.toast.success(`${this.item.ticket_order} is now canceled.`);
+            }
+            else if (response.status == 403)
+            {
+                this.toast.danger("403");
+            }
+            else
+            {
+                this.toast.danger("Oops! Something went wrong.");
+            }
+        },
+
+        
     }
 }
 </script>

@@ -13,12 +13,12 @@
             {{ formatPriorityLevel(item.priority_level) }}
         </td>
         <td class="table-data">
-            {{ formatAsignee(item.assigned_by) }}
-        </td>
-        <td class="table-data">
             <span :class="formatStatus(item.status).badgeClass">
                 {{ formatStatus(item.status).label }}
             </span>
+        </td>
+        <td class="table-data">
+            {{ formatAsignee(item.assigned_by) }}
         </td>
         <td class="table-data">
             {{ item.request_date }}
@@ -26,30 +26,17 @@
         <td class="table-data">
             {{ item.completed_date || "TBD"}}
         </td>
-        <td class="table-data">
-            <!-- <button
-                type="button"
-                class="btn btn-outline-primary btn-sm"
-                data-bs-toggle="modal"
-                data-bs-target="#feedbackModal">
-                <i class="bx bx-comment-dots mb-0"></i>
-            </button> -->
-            <button
-                type="button"
-                class="btn btn-outline-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
-                <i class="bx bx-comment-dots mb-0"></i>
-            </button>
+        <td class="table-data text-center">
+            <router-link :to="`/user/feedback/${this.item.id}`">
+                <i class="bx bx-message-dots mb-0"></i>
+            </router-link>
         </td>
     </tr>
 
-    <feedback-modal />
 </template>
 <script>
 import apiClient from "@/services/authorization";
 import { useToast } from "vue-toastification";
-import FeedbackModal from "./feedback-modal.vue";
 export default
 {
     data()
@@ -63,11 +50,6 @@ export default
     {
         item: Object,
         isLoading: Boolean
-    },
-
-    components:
-    {
-        FeedbackModal
     },
 
     mounted()

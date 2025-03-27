@@ -13,8 +13,16 @@
               class="icon-badge notification-container"
               data-bs-toggle="offcanvas"
               data-bs-target="#offcanvasRight"
-              aria-controls="offcanvasRight">
+              aria-controls="offcanvasRight"
+              @click="refreshNotificationCount()">
               <i class="bx bxs-bell"></i>
+              <span
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                v-if="notificationCount > 0"
+              >
+                {{ notificationCount }}
+                <span class="visually-hidden">unread messages</span>
+              </span>
             </a>
 
             <!-- Profile Icon -->
@@ -33,15 +41,22 @@
 </template>
 
 <script>
+import apiClient from "@/services/authorization";
 import OffCanvasComponent from "./offcanvas/index.vue";
 export default
 {
+  name: 'THisHEader',
     data()
     {
         return {
             dropdownOpen: false,
             notifications: Array.from({ length: 30 }, (_, i) => `Notification ${i + 1}`), // Example: 20 notifications
             user: null, // Will store user data here
+
+
+            notificationCount: 0,
+            notificationCountLoading: false,
+            showNotificationCount: true,
         };
     },
 
@@ -49,7 +64,7 @@ export default
     {
         OffCanvasComponent
     },
-
+    
     computed:
     {
         // User's name (will display "Loading..." until fetched)
@@ -70,6 +85,11 @@ export default
 
     methods:
     {
+        reduceCount()
+        {
+            return this.notificationCount--;
+        },
+
         toggleDropdown()
         {
             this.dropdownOpen = !this.dropdownOpen;
@@ -112,8 +132,26 @@ export default
                 sidebar.classList.add('closed');
                 contentArea.style.marginLeft = '0';
             }
-        }
+        },
 
+        async fetchNotificationCount()
+        {
+          this.notificationCountLoading = true;
+
+          const response = await apiClient.get('ticket-notifications/unread/count');
+
+          this.notificationCountLoading = false;
+
+          if (response.status == 200)
+          {
+            this.notificationCount = response.data;
+          }
+        },
+
+        refreshNotificationCount()
+        {
+          this.notificationCount = 0;
+        },
     },
 
     mounted()
@@ -123,6 +161,8 @@ export default
         
         // Close dropdown if click is outside of component
         document.addEventListener("click", this.closeDropdown);
+
+        this.fetchNotificationCount();
     },
 
     beforeUnmount()

@@ -42,23 +42,4 @@
         </router-link>
     </li> -->
 
-    <off-canvas-component />
-
 </template>
-<script>
-import OffCanvasComponent from "@/views/layouts/header/offcanvas/index.vue"
-export default
-{
-    data()
-    {
-        return{
-
-        }
-    },
-
-    components:
-    {
-        OffCanvasComponent
-    }
-}
-</script>
