@@ -46,7 +46,7 @@ export default
             }
         },
 
-        createDoughnutChart(Low, Medium, High, Extreme)
+        createDoughnutChart(Asignee)
         {
             if (this.doughnutChart)
             {
@@ -55,11 +55,11 @@ export default
 
             const data =
             {
-                labels: ["Low", "Medium", "High", "Emergency"],
+                labels: ["Asignee"],
                 datasets: [
                 {
-                    data: [Low, Medium, High, Extreme], // Real-time data
-                    backgroundColor: ["#008000", "#FFDE21", "#FFA500", "#FF2C2C"],
+                    data: [Asignee], // Real-time data
+                    backgroundColor: ["blue"],
                     hoverOffset: 10, // Adds hover effect
                 },
                 ],

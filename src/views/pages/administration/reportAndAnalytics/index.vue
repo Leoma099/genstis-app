@@ -2,7 +2,7 @@
 
     <div class="d-flex justify-content-between align-items-center">
         <p class="page-title mb-0">Report and Analytics</p>
-        <div>
+        <!-- <div>
             <button
                 type="button"
                 class="btn btn-primary rounded-0 me-3">
@@ -14,7 +14,7 @@
                 data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Filter
             </button>
-        </div>
+        </div> -->
     </div>
 
     <!-- <div class="mt-4">

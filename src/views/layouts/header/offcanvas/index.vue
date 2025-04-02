@@ -9,7 +9,6 @@
             <div
                 v-if="!itemsLoading">
                 <div v-if="items.length > 0">
-
                     <item-component
                     class="notification"
                         v-for="(item, index) in items"
@@ -48,9 +47,7 @@ export default
             items: [],
             itemsLoading: false,
             isEmpty: true,
-
             count: 0,
-
             selectedItem: {},
         };
     },
@@ -58,8 +55,13 @@ export default
     created()
     {
         this.fetchTicketNotifications();
-
+        this.startAutoRefresh();
         console.log(this, 'OFFCANVAS');
+    },
+
+    beforeUnmount()
+    {
+        clearInterval(this.refreshInterval);
     },
     
     methods:
@@ -83,6 +85,13 @@ export default
             {
                 this.items = response.data.data;
             }
+        },
+
+        startAutoRefresh()
+        {
+            this.refreshInterval = setInterval(() => {
+                this.fetchTicketNotifications();
+            }, 5000); // Refresh every 5 seconds
         },
 
         selectItem(item)

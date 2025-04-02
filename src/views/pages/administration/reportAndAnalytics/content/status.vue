@@ -55,11 +55,11 @@ export default
 
             const data =
             {
-                labels: ["Low", "Medium", "High", "Emergency"],
+                labels: ["Pending", "In-Progress", "Resolved", "Unresolved"],
                 datasets: [
                 {
                     data: [Low, Medium, High, Extreme], // Real-time data
-                    backgroundColor: ["#008000", "#FFDE21", "#FFA500", "#FF2C2C"],
+                    backgroundColor: ["#f0f0f0", "#FFDE21", "green", "#FF2C2C"],
                     hoverOffset: 10, // Adds hover effect
                 },
                 ],

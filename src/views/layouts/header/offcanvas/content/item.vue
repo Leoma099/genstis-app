@@ -1,4 +1,5 @@
 <template>
+    
     <div @click="markAsUnread">
         <p>
             <span class="vh-text-bold">

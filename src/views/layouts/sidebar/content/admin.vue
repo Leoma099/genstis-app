@@ -30,11 +30,11 @@
         </router-link>
     </li>
 
-    <li>
+    <!-- <li>
         <router-link :to="'/administration/customer-feedback'">
             <i class="bx bxs-group"></i>Customer Feedback
         </router-link>
-    </li>
+    </li> -->
 
     <!-- <li>
         <router-link :to="'/administration/operator'">
