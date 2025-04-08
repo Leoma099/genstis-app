@@ -11,11 +11,12 @@
                     <router-link to="/user/request-ticket/create" class="btn rounded-0 button-color">Request Ticket</router-link>
                  </div>
                  <div class="col-md-4">
-                    <input type="text" class="form-control form-control-sm rounded-0" placeholder="Type your search here">
-                 </div>
+                    <input type="text" v-model="searchQuery" @input="fetchTickets" placeholder="Type your search here"
+                        class="form-control rounded-0">
+                </div>
             </div>
 
-            <div class="table-responsive">
+            <div class="table-responsive table-scrollable">
                 <table class="table table-bordered table-hover mb-0">
                     <thead>
                         <tr>
@@ -29,13 +30,27 @@
                             <!-- <th class="table-header">ACTION</th> -->
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody v-if="!isEmpty">
                         <item-component
                             v-for="(item, index) in items"
                             :key="index"
                             :item="item"/>
                     </tbody>
+                    <tbody v-else>
+                        <tr>
+                            <td colspan="8" class="text-center">No Data Record</td>
+                        </tr>
+                    </tbody>
                 </table>
+            </div>
+            <!-- Pagination is here -->
+            <div class="pagination-container">
+                <div class="entries-info">
+                    Showing {{ (currentPage - 1) * perPage + 1 }} to {{ currentPage * perPage }} of {{ items.length }} records
+                </div>
+                <div class="pagination-buttons">
+                    <!-- Pagination buttons here -->
+                </div>
             </div>
         </div>
     </div>
@@ -48,6 +63,10 @@ export default {
     data() {
         return {
             items: [],
+            searchQuery: "",
+            isEmpty: false,
+            perPage: 10,
+            currentPage: 1
         };
     },
 
@@ -56,17 +75,31 @@ export default {
         ItemComponent,
     },
 
-    mounted() {
+    mounted()
+    {
         this.fetchTickets();
     },
 
-    methods: {
-        async fetchTickets() {
-            try {
-                const response = await apiClient.get('/ticket');
+    methods:
+    {
+        async fetchTickets()
+        {
+            try
+            {
+                const response = await apiClient.get('/ticket', {
+                    params:
+                    {
+                        search: this.searchQuery,
+                        page: this.currentPage,
+                        perPage: this.perPage
+                    }
+                });
                 this.items = response.data;
+                this.isEmpty = this.items.length === 0;
                 console.log("Tickets fetched successfully:", response.data);
-            } catch (error) {
+            }
+            catch (error)
+            {
                 console.error("Failed to fetch tickets:", error);
             }
         },
@@ -95,5 +128,22 @@ export default {
     font-size: 0.70rem;
     font-weight: 400;
     padding: 10px;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    font-size: 14px;
+}
+.table-scrollable
+{
+    max-height: 500px;
+    overflow: hidden; /* Hidden by default */
+}
+.table-scrollable:hover
+{
+    overflow-y: auto; /* Show scrollbar when hovering */
 }
 </style>

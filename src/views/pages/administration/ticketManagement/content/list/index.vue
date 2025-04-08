@@ -3,7 +3,7 @@
     <div class="animate animate-fade-in">
 
         <div class="d-flex justify-content-between align-items-center">
-            <p class="page-title mb-0">Ticket List</p>
+            <h1 class="page-title mb-0">Ticket List</h1>
             
         </div>
 
@@ -19,11 +19,9 @@
                             Create New Ticket
                         </router-link>
                     </div>
-                    <div class="col-3">
-                        <input
-                            type="search"
-                            class="form-control form-control-sm rounded-0"
-                            placeholder="Type your search here">
+                    <div class="col-md-4">
+                        <input type="text" v-model="searchQuery" @input="fetchTickets" placeholder="Type your search here"
+                            class="form-control rounded-0">
                     </div>
                 </div>
 
@@ -44,7 +42,7 @@
                                 <th class="table-header">PERMISSION</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody v-if="!isEmpty">
                             <item-component
                              v-for="(item, index) in items"
                              :key="index"
@@ -53,9 +51,22 @@
                              :selectItem="selectItem"
                              :updateItem="updateItem"/>
                         </tbody>
+                        <tbody v-else>
+                            <tr>
+                                <td colspan="8" class="text-center">No Data Record</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
-
+                <!-- Pagination is here -->
+                <div class="pagination-container">
+                    <div class="entries-info">
+                        Showing {{ (currentPage - 1) * perPage + 1 }} to {{ currentPage * perPage }} of {{ items.length }} records
+                    </div>
+                    <div class="pagination-buttons">
+                        <!-- Pagination buttons here -->
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -74,10 +85,11 @@ export default
         return{
 
             items:[],
-            ticketCount: 1, // Initialize ticket counter
             searchQuery: "",
-            isLoading: false,
-
+            isEmpty: false,
+            perPage: 10,
+            currentPage: 1,
+            ticketCount: 1, // Initialize ticket counter
             selectedItem: {},
 
         }
@@ -102,7 +114,14 @@ export default
                 this.isLoading = true;
                 setTimeout(async () => {
 
-                    const response = await apiClient.get('/ticket');
+                    const response = await apiClient.get('/ticket', {
+                        params:
+                        {
+                            search: this.searchQuery,
+                            page: this.currentPage,
+                            perPage: this.perPage
+                        }
+                    });
                     this.items = response.data;
                     console.log("Fetch ticket successfully:", response.data);
 
@@ -154,8 +173,6 @@ export default
     }
 }
 .page-title {
-    font-weight: 600;
-    font-size: 1.5rem;
     color: #a200ff;
 }
 .button-color {
@@ -181,36 +198,13 @@ export default
     margin-top: 16px;
     font-size: 14px;
 }
-
-.entries-info {
-    color: #666;
+.table-scrollable
+{
+    max-height: 500px;
+    overflow: hidden; /* Hidden by default */
 }
-
-.pagination-buttons {
-    display: flex;
-    gap: 5px;
-}
-
-.pagination-buttons button {
-    background: white;
-    border: 1px solid #ddd;
-    padding: 6px 10px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.pagination-buttons button:hover {
-    background: #f0f0f0;
-}
-
-.pagination-buttons button.active {
-    background: #a200ff;
-    color: white;
-    border-color: #a200ff;
-}
-
-.pagination-buttons button:disabled {
-    background: #eee;
-    cursor: not-allowed;
+.table-scrollable:hover
+{
+    overflow-y: auto; /* Show scrollbar when hovering */
 }
 </style>

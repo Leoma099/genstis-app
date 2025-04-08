@@ -1,5 +1,7 @@
 <template>
+
     <nav>
+
         <div class="component-left">
             <a href="javascript:void(0);" @click="toggleSidebar()">
             <i class="bx bx-menu"></i>
@@ -8,41 +10,55 @@
 
         <div class="component-right">
 
-            <!-- Notification Dropdown -->
-            <a
-              class="icon-badge notification-container"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasRight"
-              aria-controls="offcanvasRight"
-              @click="refreshNotificationCount()">
-              <i class="bx bxs-bell"></i>
-              <span
-                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                v-if="notificationCount > 0"
-              >
-                {{ notificationCount }}
-                <span class="visually-hidden">unread messages</span>
-              </span>
-            </a>
+            <div class="icon-badge notification-container" @click="toggleDropdown">
 
-            <!-- Profile Icon -->
+                <i class="bx bxs-bell icon-size"></i>
+                <span class="badge" v-if="notificationCount > 0">{{ notificationCount }}</span>
+
+                <div
+                  v-show="dropdownOpen"
+                  class="dropdown">
+
+                    <h4 class="mb-0" style="padding-inline: 10px;">Notification</h4>
+
+                    <div v-if="items.length > 0">
+                        <item-component
+                            class="notification mt-2"
+                            v-for="(item, index) in items"
+                            :key="index"
+                            :item="item"/>
+                    </div>
+
+                    <div class="notification-box mt-3"
+                        v-else>
+                        <p class="mb-0 text-center">No notifications</p>
+                    </div>
+
+
+                </div>
+
+            </div>
+            
             <router-link :to="'/my-account'" class="profile">
+
                 <div class="profile-img me-3">
-                    <!-- Display user photo or fallback to default image -->
                     <img :src="userPhoto" alt="User Photo" />
                 </div>
                 <div>
                     <p class="mb-0">{{ userName }}</p>
                 </div>
+
             </router-link>
+
         </div>
-        <off-canvas-component />
+
     </nav>
+
 </template>
 
 <script>
 import apiClient from "@/services/authorization";
-import OffCanvasComponent from "./offcanvas/index.vue";
+import ItemComponent from "./content/item.vue";
 export default
 {
   name: 'THisHEader',
@@ -50,9 +66,11 @@ export default
     {
         return {
             dropdownOpen: false,
-            notifications: Array.from({ length: 30 }, (_, i) => `Notification ${i + 1}`), // Example: 20 notifications
-            user: null, // Will store user data here
-
+            items: [],
+            user: null,
+            isEmpty: false,
+            interval: null,
+            selectedItem: {},
 
             notificationCount: 0,
             notificationCountLoading: false,
@@ -62,7 +80,7 @@ export default
 
     components:
     {
-        OffCanvasComponent
+        ItemComponent
     },
     
     computed:
@@ -85,24 +103,6 @@ export default
 
     methods:
     {
-        reduceCount()
-        {
-            return this.notificationCount--;
-        },
-
-        toggleDropdown()
-        {
-            this.dropdownOpen = !this.dropdownOpen;
-        },
-
-        closeDropdown(event)
-        {
-            if (!this.$el.contains(event.target))
-            {
-                this.dropdownOpen = false;
-            }
-        },
-        
         // Fetch user data from localStorage
         fetchUserData()
         {
@@ -136,38 +136,99 @@ export default
 
         async fetchNotificationCount()
         {
-          this.notificationCountLoading = true;
+            try
+            {
+                const response = await apiClient.get('/ticket-notifications');
 
-          const response = await apiClient.get('ticket-notifications/unread/count');
+                // Ensure response data is an array
+                if (Array.isArray(response.data.data))
+                {
+                    this.items = response.data.data;
+                    this.notificationCount = this.items.filter(item => !item.is_read).length;
 
-          this.notificationCountLoading = false;
-
-          if (response.status == 200)
-          {
-            this.notificationCount = response.data;
-          }
+                    console.log("Notification fetched successfully:", response.data.data);
+                }
+                else
+                {
+                    this.items = [];  // Set to an empty array if the response isn't an array
+                    console.error("Fetched data is not an array:", response.data.data);
+                }
+            }
+            catch(error)
+            {
+                console.error("Error occured:", error);
+            }
         },
 
-        refreshNotificationCount()
+        selectItem(item)
         {
-          this.notificationCount = 0;
+            this.selectedItem = item;
+        },
+
+        updateItem(updatedData)
+        {
+            let checkingItem = this.items.find(row => row.id == updatedData.id);
+
+            checkingItem.is_read = updatedData.is_read;
+        },
+
+        toggleDropdown()
+        {
+            this.dropdownOpen = !this.dropdownOpen;
+
+            if (this.dropdownOpen)
+            {
+                this.markNotificationsAsRead();
+            }
+
+            localStorage.setItem('notifications_read', 'true');
+        },
+
+        async markNotificationsAsRead()
+        {
+            try
+            {
+                await apiClient.post('/mark-notifications-read');
+                this.items.forEach(item => item.is_read = 1);
+                this.notificationCount = 0; // Reset notification count to 0 when the bell icon is clicked
+            }
+            catch (error)
+            {
+                console.error("Failed to mark notifications as read:", error);
+            }
+        },
+
+        closeDropdown(event)
+        {
+            if (!this.$el.contains(event.target))
+            {
+                this.dropdownOpen = false;
+            }
+        },
+
+        startRealTimeUpdates()
+        {
+            this.interval = setInterval(() => {
+                if (!this.dropdownOpen)
+                {
+                    this.fetchNotificationCount(); // Fetch notifications only when the dropdown is closed
+                }
+            }, 5000); // Fetch every 5 seconds
         },
     },
 
     mounted()
     {
-        // Fetch the user data once the component is mounted (user is logged in)
-        this.fetchUserData(); // Retrieve user data from localStorage
-        
-        // Close dropdown if click is outside of component
+        this.fetchUserData();
         document.addEventListener("click", this.closeDropdown);
-
         this.fetchNotificationCount();
+        this.startRealTimeUpdates();
     },
 
     beforeUnmount()
     {
         document.removeEventListener("click", this.closeDropdown);
+        clearInterval(this.interval); // Clear interval on component unmount
     },
 };
 </script>
@@ -182,82 +243,116 @@ nav {
   color: white;
 }
 
-/* Icon Badge Styles */
 .icon-badge {
-  position: relative;
-  cursor: pointer;
-  margin-right: 20px;
+position: relative;
+cursor: pointer;
+margin-right: 20px;
 }
 
 .badge {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  background: red;
-  color: white;
-  font-size: 12px;
-  padding: 3px 7px;
-  border-radius: 50%;
+position: absolute;
+top: 10px;
+right: -10px;
+background: red;
+color: white;
+font-size: .5;
+padding: 3px;
+border-radius: 5px;
 }
 
 /* Notification Dropdown */
 .notification-container {
-  position: relative;
+position: relative;
 }
 
 .dropdown {
-  position: absolute;
-  right: 0;
-  top: 30px;
-  background: white;
-  color: black;
-  width: 250px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  overflow: hidden;
-  z-index: 1000;
-  max-height: auto;
+position: absolute;
+right: -100px;
+top: 60px;
+background: white;
+color: black;
+width: 300px;
+box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+border-radius: 5px;
+overflow: hidden;
+z-index: 1000;
+max-height: auto;
+padding: 10px;
 }
 
 .dropdown li {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-  cursor: pointer;
+padding: 10px;
+border-bottom: 1px solid #ddd;
+cursor: pointer;
 }
 
 .dropdown li:hover {
-  background: #f5f5f5;
+background: #f5f5f5;
 }
 
 .dropdown .empty {
-  text-align: center;
-  padding: 10px;
-  color: gray;
+text-align: center;
+padding: 10px;
+color: gray;
 }
 
 /* Scrollbar when 15+ notifications */
 .scrollable {
-  max-height: 300px; /* Limit height */
-  overflow-y: auto;
+max-height: 300px; /* Limit height */
+overflow-y: auto;
 }
 
 /* Custom Scrollbar Styling */
 .scrollable::-webkit-scrollbar {
-  width: 6px;
+width: 6px;
 }
 
 .scrollable::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 10px;
+background: #f1f1f1;
+border-radius: 10px;
 }
 
 .scrollable::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 10px;
+background: #888;
+border-radius: 10px;
 }
 
 .scrollable::-webkit-scrollbar-thumb:hover {
-  background: #555;
+background: #555;
+}
+
+.icon-size {
+font-size: 1.5rem;
+}
+
+.notification
+{
+    transition: 0.1s ease-in-out;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.notification:hover
+{
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.notification-box
+{
+    background-color: #e0e0e0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.notify-button
+{
+    transition: 0.1s ease-in-out;
+}
+.notify-button:hover
+{
+    background: #e0e0e0;
 }
 
 /* Profile Image */

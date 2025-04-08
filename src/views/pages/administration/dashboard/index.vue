@@ -4,10 +4,7 @@
 
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
-                <p class="page-title mb-0 me-3">DASHBOARD</p>
-                <div class="col-md-12">
-                    <input type="text" class="form-control rounded-0" placeholder="Search here...">
-                </div>
+                <h1 class="page-title mb-0 me-3">DASHBOARD</h1>
             </div>
             <router-link :to="'/administration/ticket-management/create'" class="btn rounded-0 button-color">Create New Ticket</router-link>
         </div>
@@ -72,8 +69,6 @@ export default
     }
 }
 .page-title {
-    font-weight: 600;
-    font-size: 1.5rem;
     color: #a200ff;
 }
 .button-color {
