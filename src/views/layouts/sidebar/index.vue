@@ -59,9 +59,17 @@ export default
         {
             // Clear the localStorage
             localStorage.removeItem('role');
+            localStorage.removeItem('username');
             localStorage.removeItem('access_token');
+
             localStorage.removeItem('full_name');
-            localStorage.removeItem('school_number');
+            localStorage.removeItem('email');
+            localStorage.removeItem('department');
+            localStorage.removeItem('position');
+            localStorage.removeItem('address');
+            localStorage.removeItem('mobile_number');
+            localStorage.removeItem('date_of_birth');
+
             localStorage.removeItem('account_id');
             localStorage.removeItem('photo');
             localStorage.removeItem('user_id');

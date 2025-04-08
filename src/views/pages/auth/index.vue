@@ -85,8 +85,16 @@ export default {
                 // Save the token and user details to localStorage
                 localStorage.setItem('access_token', response.data.token);
                 localStorage.setItem('role', response.data.role);
+                localStorage.setItem('username', response.data.username);
+
                 localStorage.setItem('full_name', response.data.full_name);
-                localStorage.setItem("school_number", response.data.school_number);
+                localStorage.setItem('email', response.data.email);
+                localStorage.setItem('department', response.data.department);
+                localStorage.setItem('position', response.data.position);
+                localStorage.setItem('address', response.data.address);
+                localStorage.setItem('mobile_number', response.data.mobile_number);
+                localStorage.setItem('date_of_birth', response.data.date_of_birth);
+
                 localStorage.setItem('photo', response.data.photo);
                 localStorage.setItem("user_id", response.data.id);
 

@@ -19,7 +19,7 @@
                         </router-link>
                     </div>
                     <div class="col-md-4">
-                        <input type="text" v-model="searchQuery" @input="fetchTickets" placeholder="Type your search here"
+                        <input type="text" v-model="searchQuery" @input="fetchAccount" placeholder="Type your search here"
                             class="form-control rounded-0">
                     </div>
                 </div>

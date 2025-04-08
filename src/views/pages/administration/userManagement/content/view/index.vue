@@ -8,7 +8,7 @@
         </router-link>
     </small>
 
-    <div class="col-8 a mx-auto mt-3">
+    <div class="mt-3">
 
         <div class="row">
 
@@ -19,94 +19,46 @@
                         <img :src="userPhoto" class="img-fluid" alt="">
                     </div>
 
-                    <div>
-                        <div class="d-flex justify-content-between align-items">
-                            <div>
-                                <p class="mb-0"><strong>Full Name:</strong></p>
-                            </div>
-                            <div>
-                                <p class="mb-0">{{ item.full_name }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="d-flex justify-content-between align-items">
-                            <div>
-                                <p class="mb-0"><strong>Username:</strong></p>
-                            </div>
-                            <div>
-                                <p class="mb-0">{{ item.user?.username }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="d-flex justify-content-between align-items">
-                            <div>
-                                <p class="mb-0"><strong>Email:</strong></p>
-                            </div>
-                            <div>
-                                <p class="mb-0">{{ item.email }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="d-flex justify-content-between align-items">
-                            <div>
-                                <p class="mb-0"><strong>Mobile Number:</strong></p>
-                            </div>
-                            <div>
-                                <p class="mb-0">{{ item.mobile_number }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="d-flex justify-content-between align-items">
-                            <div>
-                                <p class="mb-0"><strong>Birthdate:</strong></p>
-                            </div>
-                            <div>
-                                <p class="mb-0">{{ formatDate(item.date_of_birth) }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="d-flex justify-content-between align-items">
-                            <div>
-                                <p class="mb-0"><strong>Role:</strong></p>
-                            </div>
-                            <div>
-                                <p class="mb-0">{{ formatRole(item.user?.role) }}</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <router-link
-                        :to="`/administration/user-management/${this.$route.params.id}/edit`"
-                        class="btn btn-sm btn-outline-warning rounded-0 mt-3">
-                        UPDATE
-                    </router-link>
-
                 </div>
             </div>
 
             <div class="col-md-8">
                 <div class="card card-body shadow-sm border-0 rounded-0">
-                    <p class="mb-0"><strong>Activities</strong></p>
 
-                    <div v-if="item.tickets && item.tickets.length" class="mt-3">
-                        <div
-                            v-for="ticket in item.tickets"
-                            :key="ticket.id"
-                            class="d-flex justify-content-between align-items-center border-bottom py-2"
-                        >
-                            <p class="mb-0">
-                                Submitted a ticket: <strong>{{ ticket.subject }}</strong>
-                            </p>
-                            <small class="text-muted">{{ timeAgo(ticket.created_at) }}</small>
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                            <h3 class="page-title">Account Info</h3>
+
+                            <p><strong class="me-3">Full name:</strong>{{ item.full_name }}</p>
+                            <p><strong class="me-3">Email Address:</strong>{{ item.email }}</p>
+                            <p><strong class="me-3">Department:</strong>{{ item.department }}</p>
+                            <p><strong class="me-3">Position:</strong>{{ item.position }}</p>
+                            <p><strong class="me-3">Address:</strong>{{ item.address }}</p>
+                            <p><strong class="me-3">Mobile Number:</strong>{{ item.mobile_number }}</p>
+                            <p><strong class="me-3">Date of Birth:</strong>{{ item.date_of_birth }}</p>
+
                         </div>
+
+                        <div class="col-md-6">
+
+                            <h3 class="page-title">System Info</h3>
+
+                            <p><strong class="me-3">Username:</strong>{{ item.user?.username }}</p>
+                            <p><strong class="me-3">Role:</strong>{{ formatRole(item.user?.role) }}</p>
+
+                        </div>
+
                     </div>
 
-                    <p v-else class="text-muted mt-3 text-center">No submitted tickets yet.</p>
+                </div>
+                <div class="text-end">
+                    <router-link
+                        :to="`/administration/user-management/${this.$route.params.id}/edit`"
+                        class="btn btn-sm btn-warning rounded-0 mt-3">
+                        UPDATE
+                    </router-link>
                 </div>
             </div>
 
