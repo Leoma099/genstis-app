@@ -19,8 +19,8 @@
     </li>
 
     <li>
-        <router-link :to="'/staff/report'">
-            <i class="bx bxs-dashboard"></i>Reports
+        <router-link :to="'/staff/customer-feedback'">
+            <i class="bx bxs-dashboard"></i>Customer Feedback
         </router-link>
     </li>
 

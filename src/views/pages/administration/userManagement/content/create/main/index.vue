@@ -1,6 +1,6 @@
 <template>
   
-    <div class="mt-3 col-4 mx-auto">
+    <div class="mt-3 col-6 mx-auto">
 
         <div class="card card-body shadow-sm border-0 rounded-0">
 
@@ -37,6 +37,46 @@
                                     @change="handleFileUpload">
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-8">
+                            <div class="form-group mb-3">
+                                <label class="form-label">* Department:</label>
+                                <select class="form-select form-select-sm rounded-0" v-model="form.department" required>
+                                    <option value="" selected disabled>-- Select Department --</option>
+                                    <option value="1">CBA - College of Business and Administration</option>
+                                    <option value="2">CASED - College of Arts and Science Education</option>
+                                    <option value="3">Registrar</option>
+                                    <option value="4">Payroll</option>
+                                    <option value="5">Accounting Finance</option>
+                                    <option value="6">Quality Assurance</option>
+                                    <option value="7">AASS</option>
+                                    <option value="8">HR - Human Resource</option>
+                                    <option value="9">MIS Office</option>
+                                    <option value="10">Rikdo Office</option>
+                                    <option value="11">Graduate School Office</option>
+                                    <option value="12">Museum</option>
+                                    <option value="13">Library</option>
+                                    <option value="14">Sewing</option>
+                                    <option value="15">Principal Office</option>
+                                    <option value="16">CESO Office</option>
+                                    <option value="17">Cashier</option>
+                                    <option value="18">CCS - College of Computer Studies</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">* Position:</label>
+                            <input
+                                type="text"
+                                class="form-control form-control-sm rounded-0"
+                                placeholder="ex. Dean"
+                                v-model="form.position" required>    
+                        </div>
+
                     </div>
 
                     <div class="form-group mb-3">
@@ -164,7 +204,8 @@ export default
                 role: "3",
                 username: "",
                 password: "",
-                number: "",
+                department: "",
+                position: "",
             },
             isLoading: false,  // Track if the login is in progress
 
@@ -206,7 +247,8 @@ export default
                 formData.append("role", this.form.role);
                 formData.append("username", this.form.username);
                 formData.append("password", this.form.password);
-                formData.append("number", this.form.number);
+                formData.append("department", this.form.department);
+                formData.append("position", this.form.position);
 
                 const response = await apiClient.post("/account", formData, {
                     headers: { "Content-Type": "multipart/form-data" } // ✅ Important for file upload

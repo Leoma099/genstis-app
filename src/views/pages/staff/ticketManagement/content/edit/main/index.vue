@@ -107,24 +107,34 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group mb-3">
                                 <label class="form-label">* Request Date:</label>
                                 <input
-                                    type="datetime-local"
+                                    type="datet"
                                     class="form-control form-control-sm rounded-0"
                                     v-model="form.request_date"
                                     disabled
                                 />
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group mb-3">
                                 <label class="form-label">Completed Date:</label>
                                 <input
-                                    type="datetime-local"
+                                    type="date"
                                     class="form-control form-control-sm rounded-0"
                                     v-model="form.completed_date"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label class="form-label">Completed Time:</label>
+                                <input
+                                    type="time"
+                                    class="form-control form-control-sm rounded-0"
+                                    v-model="form.completed_time"
                                 />
                             </div>
                         </div>
@@ -174,6 +184,7 @@ export default
                 assigned_by: "",
                 request_date: "",
                 completed_date: "",
+                completed_time: "",
                 photo: null,
             },
             isLoading: false,  // Track if the login is in progress

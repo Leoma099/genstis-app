@@ -54,30 +54,20 @@
                 <hr>
 
                 <div class="mb-3">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="form-group mb-3">
-                                <label class="form-label">* Subject:</label>
-                                <select class="form-select form-select-sm rounded-0" v-model="form.subject" disabled>
-                                    <option value="0" disabled>-- Select Issue --</option>
-                                    <option value="1">Desktop Computer</option>
-                                    <option value="2">Laptop Computer</option>
-                                    <option value="3">Printer Services</option>
-                                    <option value="4">Software Installation</option>
-                                    <option value="5">Internet Connection</option>
-                                    <option value="6">Wireless Connection</option>
-                                    <option value="7">New User (Microsoft Account)</option>
-                                    <option value="8">Login Issues</option>
-                                    <option value="9">Other</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group mb-3">
-                                <label class="form-label">* Photo:</label>
-                                <input type="file" class="form-control form-control-sm rounded-0" @change="handleFileUpload">
-                            </div>
-                        </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label">* Subject:</label>
+                        <select class="form-select form-select-sm rounded-0" v-model="form.subject" disabled>
+                            <option value="0" disabled>-- Select Issue --</option>
+                            <option value="1">Desktop Computer</option>
+                            <option value="2">Laptop Computer</option>
+                            <option value="3">Printer Services</option>
+                            <option value="4">Software Installation</option>
+                            <option value="5">Internet Connection</option>
+                            <option value="6">Wireless Connection</option>
+                            <option value="7">New User (Microsoft Account)</option>
+                            <option value="8">Login Issues</option>
+                            <option value="9">Other</option>
+                        </select>
                     </div>
 
                     <div class="form-group mb-3">

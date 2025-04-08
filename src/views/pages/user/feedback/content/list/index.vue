@@ -11,14 +11,11 @@
                 <thead>
                     <tr>
                         <th class="table-header">TICKET ORDER</th>
-                        <th class="table-header">DEPARTMENT</th>
-                        <th class="table-header">SUBJECT</th>
-                        <th class="table-header">PRIORITY LEVEL</th>
-                        <th class="table-header">STATUS</th>
-                        <th class="table-header">ASIGNEE</th>
-                        <th class="table-header">REQUEST DATE</th>
+                        <th class="table-header">ASSIGNED BY</th>
                         <th class="table-header">COMPLETED DATE</th>
-                        <th class="table-header">ACTION</th>
+                        <th class="table-header">TIME</th>
+                        <th class="table-header">RATE</th>
+                        <th class="table-header">COMMENT</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,16 +51,16 @@ export default
 
     mounted()
     {
-        this.fetchTickets();
+        this.fetchTicketFeedback();
     },
 
     methods:
     {
-        async fetchTickets()
+        async fetchTicketFeedback()
         {
             try
             {
-                const response = await apiClient.get('/ticket');
+                const response = await apiClient.get('/customer-feedback');
                 this.items = response.data;
                 console.log("Tickets fetched successfully:", response.data);
             }

@@ -6,12 +6,9 @@
                     <div>
                         <div class="login-image">
                             <p class="mb-0">Welcome to</p>
-                            <img src="/assets/images/gensts-ccs.png" alt="">
                         </div>
                         <div>
-                            <small>
-                                GENSTS-General Service Ticketing System. Is a Web-Based Ticketing Service System mainly for ITSO. It is a system for IT related concerns in Columban College Main.
-                            </small>
+                            <h1>ITSO JOB ORDER TICKETING SYSTEM</h1>
                         </div>
                     </div>
                 </div>

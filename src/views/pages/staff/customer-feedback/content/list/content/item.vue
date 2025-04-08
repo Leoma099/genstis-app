@@ -1,6 +1,7 @@
 <template>
     <tr>
         <td>{{ item.ticket_order }}</td>
+        <td>{{ item.full_name }}</td>
         <td>{{ formatAsignee(item.assigned_by) }}</td>
         <td>{{ item.completed_date }}</td>
         <td>{{ formatTime(item.completed_time) }}</td>

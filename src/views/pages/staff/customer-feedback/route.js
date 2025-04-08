@@ -1,33 +1,33 @@
 export default [
     {
-        path: '/staff/mail-box',
-        name: 'Staff / Mailbox',
-        component: () => import('@/views/pages/staff/mailBox'),
+        path: '/staff/customer-feedback',
+        name: 'Staff / Customer Feedback',
+        component: () => import('@/views/pages/staff/customer-feedback'),
         meta:
         {
-            name: 'Mailbox',
+            name: 'Customer Feedback',
             page: 'list',
         },
         children:
             [
                 {
                     path: 'create',
-                    name: 'Create Staff / Mailbox',
-                    component: () => import('@/views/pages/staff/mailBox'),
+                    name: 'Create Staff / Customer Feedback',
+                    component: () => import('@/views/pages/staff/customer-feedback'),
                     meta:
                     {
-                        name: 'Create Mail',
+                        name: 'Create Customer Feedback',
                         page: 'create',
                         subPage: 'main',
                     },
                 },
                 {
-                    path: ':code',
-                    name: 'View Staff / Mailbox',
-                    component: () => import('@/views/pages/staff/mailBox'),
+                    path: ':id',
+                    name: 'View Staff / Customer Feedback',
+                    component: () => import('@/views/pages/staff/customer-feedback'),
                     meta:
                     {
-                        name: 'View Mail',
+                        name: 'View Customer Feedback',
 
                         page: 'view',
                     },
@@ -35,12 +35,11 @@ export default [
                         [
                             {
                                 path: 'edit',
-                                name: 'Edit Staff / Mailbox',
-                                component: () => import('@/views/pages/staff/mailBox'),
+                                name: 'Edit Staff / Customer Feedback',
+                                component: () => import('@/views/pages/staff/customer-feedback'),
                                 meta:
                                 {
-                                    name: 'Edit Mail',
-
+                                    name: 'Edit Customer Feedback',
                                     page: 'edit',
                                     subPage: 'main',
                                 },

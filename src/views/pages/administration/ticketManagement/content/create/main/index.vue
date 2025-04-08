@@ -84,11 +84,6 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="form-label">* Photo:</label>
-                        <input type="file" class="form-control form-control-sm rounded-0" @change="handleFileUpload">
-                    </div>
-
-                    <div class="form-group mb-3">
                         <label class="form-label mb-0">* Problem Description:</label>
                         <textarea
                             class="form-control form-control-sm rounded-0"

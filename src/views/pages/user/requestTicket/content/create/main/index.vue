@@ -17,7 +17,7 @@
 
                 <div class="form-group mb-3">
                     <label for="" class="form-label">* Subject:</label>
-                    <select name="" id="" class="form-select form-select-sm rounded-0" v-model="form.subject">
+                    <select name="" id="" class="form-select form-select-sm rounded-0" v-model="form.subject" required>
                         <option value="0" disabled>-- Select Issue --</option>
                         <option value="1">Desktop</option>
                         <option value="2">Laptop</option>
@@ -31,34 +31,17 @@
                     </select>
                 </div>
 
-                <div class="form-group mb-3">
+                <!-- <div class="form-group mb-3">
                     <label class="form-label">* Department:</label>
-                    <select name="" id="" class="form-select form-select-sm rounded-0" v-model="form.department">
-                        <option value="0" disabled>-- Select Department --</option>
-                        <option value="1">CBA - College of Business and Administration</option>
-                        <option value="2">CASED - College of Arts and Science Education</option>
-                        <option value="3">Registrar</option>
-                        <option value="4">Payroll</option>
-                        <option value="5">Accounting Finance</option>
-                        <option value="6">Quality Assurance</option>
-                        <option value="7">AASS</option>
-                        <option value="8">HR - Human Resource</option>
-                        <option value="9">MIS Office</option>
-                        <option value="10">Rikdo Office</option>
-                        <option value="11">Graduate School Office</option>
-                        <option value="12">Museum</option>
-                        <option value="13">Library</option>
-                        <option value="14">Sewing</option>
-                        <option value="15">Principal Office</option>
-                        <option value="16">CESO Office</option>
-                        <option value="17">Cashier</option>
-                        <option value="18">CCS - College of Computer Studies</option>
-                    </select>
-                </div>
+                    <input
+                        type="text"
+                        class="form-control form-control-sm rounded-0"
+                        :value="formatDepartment(form.department)">
+                </div> -->
 
                 <div class="form-group mb-3">
                     <label class="form-label">* Priority Level:</label>
-                    <select name="" id="" class="form-select form-select-sm rounded-0" v-model="form.priority_level">
+                    <select name="" id="" class="form-select form-select-sm rounded-0" v-model="form.priority_level" required>
                         <option value="0" disabled>-- Select Priority Level --</option>
                         <option value="1">Low</option>
                         <option value="2">Medium</option>
@@ -104,9 +87,8 @@ export default
             {
                 ticket_order: "",
                 full_name: "",
-                school_number: "",
+                department: "",
                 subject: "0",
-                department: "0",
                 priority_level: "1",
                 request_date: this.getCurrentDate(),
                 completed_date: "",
@@ -165,8 +147,34 @@ export default
         fetchUserDetails()
         {
             this.form.full_name = localStorage.getItem("full_name") || "";
-            this.form.school_number = localStorage.getItem("school_number") || "";
+            this.form.department = localStorage.getItem("department") || "";
             this.form.account_id = localStorage.getItem("user_id") || "";
+        },
+
+        formatDepartment(department)
+        {
+            const departments =
+            {
+                1: "CBA - College of Business and Administration",
+                2: "CASED - College of Arts and Science Education",
+                3: "Registrar",
+                4: "Payroll",
+                5: "Accounting Finance",
+                6: "Quality Assurance",
+                7: "AASS",
+                8: "HR - Human Resource",
+                9: "MIS Office",
+                10: "Rikdo Office",
+                11: "Graduate School",
+                12: "Museum",
+                13: "Library",
+                14: "Sewing",
+                15: "Principal Office",
+                16: "CESO Office",
+                17: "Cashier",
+                18: "CCS - College of Computer Studies",
+            };
+            return departments[department] || "N/A";
         },
 
         async submit()

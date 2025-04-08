@@ -2,12 +2,7 @@
 
     <div class="animate animate-fade-in">
 
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center">
-                <h1 class="page-title mb-0 me-3">DASHBOARD</h1>
-            </div>
-            <router-link :to="'/administration/ticket-management/create'" class="btn rounded-0 button-color">Create New Ticket</router-link>
-        </div>
+        <h1 class="page-title mb-0 me-3">DASHBOARD</h1>
 
         <div class="mt-4">
             <system-overview/>
@@ -16,16 +11,12 @@
         <div class="mt-4">
             <div class="row">
                 <div class="col-md-8">
-                    <statistics-component />
+                    <recent-activity />
                 </div>
                 <div class="col-md-4">
                     <tickets-component />
                 </div>
             </div>
-        </div>
-
-        <div class="mt-4">
-            <recent-activity />
         </div>
 
     </div>
@@ -34,7 +25,6 @@
 
 <script>
 import SystemOverview from "./content/system-overview.vue";
-import StatisticsComponent from "./content/statistics";
 import TicketsComponent from "./content/tickets";
 import RecentActivity from './content/recent-activity.vue';
 export default
@@ -42,7 +32,6 @@ export default
     components:
     {
         SystemOverview,
-        StatisticsComponent,
         TicketsComponent,
         RecentActivity,
     }

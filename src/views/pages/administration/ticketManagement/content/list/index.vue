@@ -25,7 +25,7 @@
                     </div>
                 </div>
 
-                <div class="table-responsive">
+                <div class="table-responsive table-scrollable">
                     <table class="table table-bordered table-hover mb-0">
                         <thead>
                             <tr>
@@ -103,6 +103,7 @@ export default
     mounted()
     {
         this.fetchTickets();
+        console.log("test", this.account_id)
     },
 
     methods:

@@ -40,32 +40,47 @@
         font-weight: 500;
     }
 
-    h3
+    h1
     {
-        font-size: 2.5rem;
         font-weight: 600;
     }
 }
 
 .right
 {
-    width: 6 0%;
+    width: 60%;
     height: 100vh;
     padding: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: auto;
+    background: linear-gradient(180deg, #ffffff00, #ffffff96 100%);
+}
+.right::before
+{
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: url("https://scontent.fsfs2-1.fna.fbcdn.net/v/t39.30808-6/481192779_1197532782379218_4250165591495736087_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeFkUIntx5IWcnpqdc8jdKgFEH-xRnFv23oQf7FGcW_beuag9Weqy-f95Yvr4lZVg-oSZb209zI0QBE2LvM18RUd&_nc_ohc=WUbCtxsa68gQ7kNvwGaJjWk&_nc_oc=Adnq0YO_wiMizRz7wwxt8FV5nw4wwkGItr4ptfLN2-xnlzvo-v8qmrRKPmiH_yObKo0&_nc_zt=23&_nc_ht=scontent.fsfs2-1.fna&_nc_gid=05bcpr5uGRFHXalhxnV6Ng&oh=00_AfE5USoIMmdcojxbB51fotzvp28V8t5UGhWWENg3wIPXxg&oe=67FAEB61");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    z-index: -1;
 }
 
 .right form
 {
     background-color: #ffffff;
     padding: 20px;
-    width: 400px;
+    width: 500px;
     height: auto;
+    border: 3px solid #a200ff;
     border-radius: 10px;
-    box-shadow:  20px 20px 60px #bebebe,
-             -20px -20px 60px #ffffff;
 
     .login-input
     {
@@ -84,8 +99,8 @@
 
     .right-image
     {
-        width: 60px;
-        height: 60px;
+        width: 100px;
+        height: 100px;
         overflow: hidden;
         margin: auto;
 
@@ -101,7 +116,7 @@
     {
         text-align: center;
         font-size: 1.2rem;
-        font-weight: 500;
+        font-weight: bold;
         margin: 0px;
     }
 

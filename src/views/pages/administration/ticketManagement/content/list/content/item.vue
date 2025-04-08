@@ -4,13 +4,13 @@
             {{ item.ticket_order }}
         </td>
         <td class="table-data">
-            {{ formatSubject(item.subject) }}
+            {{ item.full_name }}
         </td>
         <td class="table-data">
             {{ formatDepartment(item.department) }}
         </td>
         <td class="table-data">
-            {{ item.full_name }}
+            {{ formatSubject(item.subject) }}
         </td>
         <td class="table-data">
             {{ formatPriorityLevel(item.priority_level) }}

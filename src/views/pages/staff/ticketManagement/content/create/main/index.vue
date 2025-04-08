@@ -120,7 +120,7 @@
                     <div class="form-group mb-3">
                         <label class="form-label">* Request Date:</label>
                         <input
-                            type="datetime-local"
+                            type="date"
                             class="form-control form-control-sm rounded-0"
                             v-model="form.request_date"
                             required
@@ -164,6 +164,7 @@ export default
                 status: "1",
                 request_date: this.getCurrentDateTime(),
                 completed_date: "",
+                completed_time: "",
                 description: "",
                 photo: "",
                 assigned_by: "0",

@@ -24,12 +24,4 @@
         </router-link>
     </li>
 
-    <!-- <li>
-        <router-link :to="'/user/mail-box'">
-            <i class="bx bxs-dashboard"></i>Mailbox
-        </router-link>
-    </li> -->
-
 </template>
-
-kailan madedeploy yung system kasi kailangan madeploy before mag final defense sa april 2-9

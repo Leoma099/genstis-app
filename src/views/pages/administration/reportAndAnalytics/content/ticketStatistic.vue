@@ -1,6 +1,23 @@
 <template>
     <div class="card card-body shadow-sm border-0 rounded-0">
-        <p class="page-title mb-0">Number of Tickets</p>
+
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h3 class="page-title mb-0">Monthly Ticket Requested</h3>
+            </div>
+            <div>
+                <select
+                    class="form-select form-select-sm rounded-0"
+                    v-model="selectedYear"
+                    @change="fetchTicketStatistics">
+                    <option
+                        v-for="year in years"
+                        :key="year"
+                        :value="year">{{ year }}</option>
+                </select>
+            </div>
+        </div>
+
         <div class="metric-chart mt-3">
             <canvas ref="lineReport" height="300"></canvas>
         </div>
@@ -19,27 +36,24 @@ export default
     {
         return {
             lineChart: null,
+            selectedYear: new Date().getFullYear(),
+            years: []
         };
     },
 
-    methods: {
-        async fetchTicketStatistics() {
+    methods:
+    {
+        async fetchTicketStatistics()
+        {
             try
             {
-                const response = await apiClient.get("/ticketStat");
-                const ticketStatus = response.data;
+                const response = await apiClient.get(`/ticketSubmittedCountedMonth?year=${this.selectedYear}`);
+                const data = response.data;
 
-                // Define the labels for the chart (status labels)
-                const labels = ["Ticket Status"];
+                const labels = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+                const monthly = data.monthly;
 
-                // Define the data for each status category
-                const data1 = ticketStatus.pending || 0;     // Pending tickets
-                const data2 = ticketStatus.inProgress || 0;  // In-Progress tickets
-                const data3 = ticketStatus.resolved || 0;    // Resolved tickets
-                const data4 = ticketStatus.unresolved || 0;  // Unresolved tickets
-
-                // Call method to create/update the chart
-                this.createLineChart(labels, [data1, data2, data3, data4]);
+                this.createLineChart(labels, monthly);
 
             }
             catch (error)
@@ -48,43 +62,24 @@ export default
             }
         },
 
-        createLineChart(labels, values) {
-            if (this.lineChart) {
+        createLineChart(labels, monthly)
+        {
+            if (this.lineChart)
+            {
                 this.lineChart.destroy();
             }
 
-            // Create the new chart with updated data
-            this.lineChart = new Chart(this.$refs.lineReport.getContext("2d"), {
+            this.lineChart = new Chart(this.$refs.lineReport.getContext("2d"),
+            {
                 type: "bar",
                 data: {
                     labels: labels,
                     datasets: [
                         {
-                            label: "Pending",
-                            data: [values[0]], // Data for Pending
+                            label: "Ticket Requested",
+                            data: monthly,
                             fill: false,
-                            backgroundColor: "#d0d0d0", // Color for Pending
-                            tension: 0.4,
-                        },
-                        {
-                            label: "In-Progress",
-                            data: [values[1]], // Data for In-Progress
-                            fill: false,
-                            backgroundColor: "#FFC300", // Color for In-Progress
-                            tension: 0.4,
-                        },
-                        {
-                            label: "Resolved",
-                            data: [values[2]], // Data for Resolved
-                            fill: false,
-                            backgroundColor: "#28A745", // Color for Resolved
-                            tension: 0.4,
-                        },
-                        {
-                            label: "Unresolved",
-                            data: [values[3]], // Data for Unresolved
-                            fill: false,
-                            backgroundColor: "#DC3545", // Color for Unresolved
+                            backgroundColor: "#a200ff",
                             tension: 0.4,
                         },
                     ],
@@ -94,14 +89,14 @@ export default
                     maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            position: "bottom",
+                            display: false,
                         },
                     },
                     scales: {
                         y: {
                             title: {
                                 display: true,
-                                text: "Number of Tickets",
+                                text: "Number of Ticket Requested",
                             },
                             beginAtZero: true,
                         },
@@ -111,15 +106,10 @@ export default
         },
     },
 
-    mounted() {
-        this.fetchTicketStatistics(); // Fetch the statistics when the component is mounted
-    },
-
-    watch: {
-        // Watch for changes if you need to refetch or re-render the chart based on timeFrame or other conditions
-        timeFrame() {
-            this.fetchTicketStatistics();
-        },
+    mounted()
+    {
+        this.fetchTicketStatistics();
+        this.years = Array.from({ length: 6 }, (_, i) => new Date().getFullYear() - i);
     },
 };
 </script>

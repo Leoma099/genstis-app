@@ -9,8 +9,16 @@
                 {{ formatStatus(item.status).label }}
             </span>
         </td>
-        <td class="table-data">{{ formatDate(item.created_at) }}</td>
-        <td class="table-data">{{ formatDate(item.completed_at) }}</td>
+        <td class="table-data">{{ formatDate(item.request_date) }}</td>
+        <td class="table-data">{{ formatDate(item.completed_date) }}</td>
+        <td class="table-data">{{ item.completed_time }}</td>
+        <td class="table-data">
+            <router-link
+                :to="`/user/feedback/create?id=${item?.id}`"
+                class="btn btn-sm btn-primary rounded-0">
+                Feedback
+            </router-link>
+        </td>
     </tr>
 </template>
 

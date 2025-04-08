@@ -1,121 +1,81 @@
 <template>
+    <tr>
+        <!-- <td class="table-data">
+            <div v-if="isLoading" class="shimmer-loader"></div>
+            <span v-else>
+                <router-link
+                    :to="`/administration/ticket-management/${item.id}`">
+                    {{ item.id }}
+                </router-link>
+            </span>
+        </td> -->
+        <td class="table-data">
+            {{ item.ticket_order }}
+        </td>
+        <td class="table-data">
+            {{ item.full_name }}
+        </td>
+        <td class="table-data">
+            {{ formatSubject(item.subject) }}
+        </td>
+        <td class="table-data">
+            {{ formatPriorityLevel(item.priority_level) }}
+        </td>
+        <td class="table-data">
+            {{ item.description }}
+        </td>
+        <td class="table-data">
+            {{ formatStatus(item.status) }}
+        </td>
+        <td class="table-data">
+            {{ formatDate(item.request_date) }}
+        </td>
+        <td class="table-data">
+            {{ formatDate(item.completed_date) }}
+        </td>
+        <td class="table-data">
+            {{ item.completed_time }}
+        </td>
+        <td class="table-data">
+            <router-link
+                :to="`/staff/ticket-management/${item.id}/edit`"
+                class="btn btn-outline-info btn-sm me-3"
+                ><i class="bx bx-edit"></i>
+            </router-link>
 
-    <div class="card card-body shadow-sm rounded-0 border-0">
-
-        <div class="d-flex justify-content-between align-items-center">
-
-            <div>
-                <h3 class="page-title mb-0">List of Asigned</h3>
-            </div>
-
-            <div class="col-md-4">
-                <input type="text" v-model="searchQuery" @input="fetchData" placeholder="Search ticket order"
-                    class="form-control rounded-0">
-            </div>
-
-        </div>
-
-        <div class="table-responsive mt-3">
-            <table class="table table-bordered table-hover mb-0">
-                <thead>
-                    <tr>
-                        <th class="table-header">TICKET ORDER</th>
-                        <th class="table-header">DEPARTMENT</th>
-                        <th class="table-header">CLIENT NAME</th>
-                        <th class="table-header">SUBJECT</th>
-                        <th class="table-header">PRIORITY</th>
-                        <th class="table-header">ASSIGNEE</th>
-                        <th class="table-header">STATUS</th>
-                    </tr>
-                </thead>
-                <tbody v-if="!isEmpty">
-                    <tr v-for="(item, index) in items" :key="index">
-                        <td class="table-data">
-                            {{ item.ticket_order }}
-                        </td>
-                        <td class="table-data">
-                            {{ formatDepartment(item.department) }}
-                        </td>
-                        <td class="table-data">
-                            {{ item.full_name }}
-                        </td>
-                        <td class="table-data">
-                            {{ formatSubject(item.subject) }}
-                        </td>
-                        <td class="table-data">
-                            {{ formatPriorityLevel(item.priority_level) }}
-                        </td>
-                        <td class="table-data">
-                            {{ formatAsignee(item.assigned_by) }}
-                        </td>
-                        <td class="table-data">
-                            {{ formatStatus(item.status) }}
-                        </td>
-                    </tr>
-                </tbody>
-                <tbody v-else>
-                    <tr>
-                        <td colspan="8" class="text-center">No Data Record</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <!-- Pagination is here -->
-        <div class="pagination-container">
-            <div class="entries-info">
-                Showing {{ (currentPage - 1) * perPage + 1 }} to {{ currentPage * perPage }} of {{ items.length }} records
-            </div>
-            <div class="pagination-buttons">
-                <!-- Pagination buttons here -->
-            </div>
-        </div>
-    </div>
-
+            <button
+                class="btn btn-outline-danger btn-sm"
+                @click="deleteTicket()"><i class="bx bx-trash"></i>
+            </button>
+        </td>
+    </tr>
 </template>
-
 <script>
 import apiClient from "@/services/authorization";
+import { useToast } from "vue-toastification";
 export default
 {
-    data()
+    props:
     {
-        return{
-            items: [],
-            searchQuery: "",
-            isEmpty: false,
-            perPage: 10,
-            currentPage: 1,
-        }
+        item: Object,
+        isLoading: Boolean
     },
 
     mounted()
     {
-        this.fetchData();
+        this.toast = useToast()
     },
 
     methods:
     {
-        async fetchData()
+        formatDate(date)
         {
-            try
-            {
-                const response = await apiClient.get("/ticket",
-                    {
-                        params:
-                        {
-                            search: this.searchQuery,
-                            page: this.currentPage,
-                            perPage: this.perPage
-                        }
-                    }
-                );
-                this.items = response.data;
-            }
-            catch(error)
-            {
-                console.error("Error occured:", error)
-            }
+            if (!date) return "TBD"; // Handle empty dates
+
+            const options = { year: "numeric", month: "short", day: "numeric" };
+            return new Date(date).toLocaleDateString("en-US", options);
         },
+
         formatDepartment(department)
         {
             if(department === 1)
@@ -261,6 +221,7 @@ export default
                 return "n/a";
             }
         },
+
         formatStatus(status)
         {
             if(status === 1)
@@ -284,6 +245,7 @@ export default
                 return "n/a";
             }
         },
+
         formatAsignee(asigned_by)
         {
             if(asigned_by === 1)
@@ -303,37 +265,53 @@ export default
                 return "n/a";
             }
         },
+
+        async deleteTicket()
+        {
+            if(!confirm("Are you sure you want to delete?")) return;
+
+            try
+            {
+                const response = await apiClient.delete(`/ticket/${this.item.id}`);
+                console.log("delete sucess:", response.data);
+                this.toast.success("Ticket deleted successfully!");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            }
+            catch(error)
+            {
+                console.error("Error deleteing:", error);
+                this.toast.error("Ticket deleted unsuccessfully!")
+            }
+        }
     }
 }
 </script>
-
 <style scoped>
-.table-header
-{
+.table-header {
     font-size: 0.85rem;
     font-weight: 600;
     padding: 10px;
-    background-color: #a200ff;
+    background-color: #2369c1;
     color: #ffffff;
 }
-.page-title
-{
-    color: #a200ff;
+.shimmer-loader {
+    height: 16px;
+    width: 100%;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+    border-radius: 4px;
 }
-.pagination-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 16px;
-    font-size: 14px;
-}
-.table-scrollable
-{
-    max-height: 500px;
-    overflow: hidden; /* Hidden by default */
-}
-.table-scrollable:hover
-{
-    overflow-y: auto; /* Show scrollbar when hovering */
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
 }
 </style>

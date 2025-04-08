@@ -1,7 +1,7 @@
 <template>
     <div class="card card-body shadow-sm border-0 rounded-0">
         <p class="page-title mb-0">Tickets by Priority Level</p>
-        <div class="metric-chart mt-3">
+        <div class="metric-chart">
         <canvas ref="doughnutChart" height="300"></canvas>
         </div>
     </div>
@@ -30,15 +30,10 @@ export default
             try
             {
                 // Fetch the real-time ticket data from the API
-                const response = await apiClient.get("/status");
-                const resolvedUnresolvedData = response.data;
+                const response = await apiClient.get("/priorityStats");
+                const ticketStatus = response.data;
 
-                this.createDoughnutChart(
-                    resolvedUnresolvedData.Low,
-                    resolvedUnresolvedData.Medium,
-                    resolvedUnresolvedData.High,
-                    resolvedUnresolvedData.Emergency
-                );
+                this.createDoughnutChart(ticketStatus.low, ticketStatus.medium, ticketStatus.high, ticketStatus.emergency,);
             }
             catch (error)
             {
@@ -46,7 +41,7 @@ export default
             }
         },
 
-        createDoughnutChart(Low, Medium, High, Extreme)
+        createDoughnutChart(low, medium, high, emergency)
         {
             if (this.doughnutChart)
             {
@@ -58,8 +53,8 @@ export default
                 labels: ["Low", "Medium", "High", "Emergency"],
                 datasets: [
                 {
-                    data: [Low, Medium, High, Extreme], // Real-time data
-                    backgroundColor: ["#008000", "#FFDE21", "#FFA500", "#FF2C2C"],
+                    data: [low, medium, high, emergency], // Real-time data
+                    backgroundColor: ["blue", "yellow", "orange", "red"],
                     hoverOffset: 10, // Adds hover effect
                 },
                 ],
@@ -69,7 +64,7 @@ export default
             {
                 responsive: true,
                 maintainAspectRatio: false,
-                cutout: "70%",
+                cutout: "60%",
                 borderRadius: "5",
                 plugins: {
                 legend: {
@@ -127,3 +122,4 @@ export default
     color: #a200ff;
 }
 </style>
+

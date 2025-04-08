@@ -34,16 +34,7 @@
             {{ formatDate(item.completed_date) }}
         </td>
         <td class="table-data">
-            <router-link
-                :to="`/staff/ticket-management/${item.id}/edit`"
-                class="btn btn-outline-info btn-sm me-3"
-                ><i class="bx bx-edit"></i>
-            </router-link>
-
-            <button
-                class="btn btn-outline-danger btn-sm"
-                @click="deleteTicket()"><i class="bx bx-trash"></i>
-            </button>
+            {{ item.completed_time }}
         </td>
     </tr>
 </template>
