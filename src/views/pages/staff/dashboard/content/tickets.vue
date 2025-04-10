@@ -1,6 +1,7 @@
 <template>
     <div class="card card-body shadow-sm border-0 rounded-0">
-        <p class="mb-0">Tickets</p>
+        <p class="mb-0">Ticket Status Summary</p>
+        <small style="opacity: 0.5;">Chart summarizing tickets with various tasks</small>
         <div class="metric-chart">
         <canvas ref="doughnutChart" height="300"></canvas>
         </div>
@@ -30,10 +31,10 @@ export default
             try
             {
                 // Fetch the real-time ticket data from the API
-                const response = await apiClient.get("/status");
-                const resolvedUnresolvedData = response.data;
+                const response = await apiClient.get("/ticketStat");
+                const ticketStatus = response.data;
 
-                this.createDoughnutChart(resolvedUnresolvedData.resolved, resolvedUnresolvedData.unresolved);
+                this.createDoughnutChart(ticketStatus.pending, ticketStatus.inProgress, ticketStatus.resolved, ticketStatus.unresolved,);
             }
             catch (error)
             {
@@ -41,7 +42,7 @@ export default
             }
         },
 
-        createDoughnutChart(resolved, unresolved)
+        createDoughnutChart(pending, inProgress, resolved, unresolved)
         {
             if (this.doughnutChart)
             {
@@ -50,11 +51,11 @@ export default
 
             const data =
             {
-                labels: ["Resolved", "Unresolved"],
+                labels: ["Pending", "In-Progress", "Resolved", "Unresolved"],
                 datasets: [
                 {
-                    data: [resolved, unresolved], // Real-time data
-                    backgroundColor: ["#008000", "#ff0000"],
+                    data: [pending, inProgress, resolved, unresolved], // Real-time data
+                    backgroundColor: ["#d0d0d0", "#FFC300", "#28A745", "#DC3545"],
                     hoverOffset: 10, // Adds hover effect
                 },
                 ],
@@ -64,7 +65,7 @@ export default
             {
                 responsive: true,
                 maintainAspectRatio: false,
-                cutout: "70%",
+                cutout: "60%",
                 borderRadius: "5",
                 plugins: {
                 legend: {

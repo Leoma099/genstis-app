@@ -5,7 +5,7 @@
         <div class="d-flex justify-content-between align-items-center">
 
             <div>
-                <h3 class="page-title mb-0">List of Asigned</h3>
+                <h3 class="page-title mb-0">List of Assigned</h3>
             </div>
 
             <div class="col-md-4">

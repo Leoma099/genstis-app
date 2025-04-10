@@ -1,95 +1,53 @@
 <template>
+    <div>
+        <div class="card card-body shadow-sm border-0 rounded-0">
+            <h3 class="mb-0"><strong>Customer Satisfaction Score</strong></h3>
 
-    <p class="page-title">Recent User</p>
-  
-    <div class="card card-body shadow-sm border-0 rounded-0">
-
-        <div class="activity-list">
-
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover mb-0">
-                    <thead>
-                        <tr>
-                            <th class="table-header">USERNAME</th>
-                            <th class="table-header">EMAIL</th>
-                            <th class="table-header">MOBILE NUMBER</th>
-                        </tr>
-                    </thead>
-                    <tbody v-if="!isEmpty">
-                        <tr v-for="(item, index) in items" :key="index">
-                            <td>{{ item.user.username }}</td>
-                            <td>{{ item.email }}</td>
-                            <td>{{ item.mobile_number }}</td>
-                        </tr>
-                    </tbody>
-                    <tbody v-else>
-                        <tr>
-                            <td colspan="8" class="text-center">No Data Record</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>{{ satisfaction.positive }}%</h3>
+                    <p>Positive</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>{{ satisfaction.neutral }}%</h3>
+                    <p>Neutral</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>{{ satisfaction.negative }}%</h3>
+                    <p>Negative</p>
+                </div>
             </div>
-
         </div>
-
     </div>
-
 </template>
 
 <script>
 import apiClient from "@/services/authorization";
-export default
-{
-    data()
-    {
-        return{
-            isEmpty: false,
-            items: [],
-        }
-    },
 
-    mounted()
-    {
-        this.fetchAccount();
-    },
-
-    methods:
-    {
-        async fetchAccount()
-        {
-            try
-            {
-                const response = await apiClient.get('/account');
-                this.items = response.data;
-                console.log("Fetch account successfully:", response.data);
+export default {
+    data() {
+        return {
+            satisfaction: {
+                positive: 0,
+                neutral: 0,
+                negative: 0
             }
-            catch(error)
-            {
-                console.error("Fetch account failed:", error)
+        };
+    },
+
+    mounted() {
+        this.fetchSatisfaction();
+    },
+
+    methods: {
+        async fetchSatisfaction() {
+            try {
+                const response = await apiClient.get("/satisfaction-score");
+                this.satisfaction = response.data;
+            } catch (error) {
+                console.error("Error fetching satisfaction score:", error.response?.data || error.message);
             }
         }
     }
 }
 </script>
-
-<style scoped>
-.activity-list {
-    height: auto;
-}
-.page-title {
-    font-weight: 600;
-    font-size: 1.5rem;
-    color: #a200ff;
-}
-.button-color {
-    background-color: #a200ff;
-    color: #ffffff;
-}
-.table-header {
-    font-size: 0.85rem;
-    font-weight: 600;
-    padding: 10px;
-    background-color: #a200ff;
-    color: #ffffff;
-}
-</style>

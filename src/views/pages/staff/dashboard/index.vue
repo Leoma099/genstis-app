@@ -2,9 +2,7 @@
 
     <div class="animate animate-fade-in">
 
-        <div class="d-flex justify-content-between align-items-center">
-            <p class="page-title mb-0">DASHBOARD</p>
-        </div>
+        <h1 class="page-title mb-0 me-3">DASHBOARD</h1>
 
         <div class="mt-4">
             <system-overview/>
@@ -13,7 +11,7 @@
         <div class="mt-4">
             <div class="row">
                 <div class="col-md-8">
-                    <statistics-component />
+                    <recent-activity />
                 </div>
                 <div class="col-md-4">
                     <tickets-component />
@@ -27,15 +25,15 @@
 
 <script>
 import SystemOverview from "./content/system-overview.vue";
-import StatisticsComponent from "./content/statistics";
 import TicketsComponent from "./content/tickets";
+import RecentActivity from './content/recent-activity.vue';
 export default
 {
     components:
     {
         SystemOverview,
-        StatisticsComponent,
         TicketsComponent,
+        RecentActivity,
     }
 }
 </script>
@@ -60,8 +58,6 @@ export default
     }
 }
 .page-title {
-    font-weight: 600;
-    font-size: 1.5rem;
     color: #a200ff;
 }
 .button-color {
