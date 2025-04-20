@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex justify-content-between align-items-center">
-        <p class="page-title mb-0">My Tickets</p>
+        <h1 class="page-title mb-0">My Tickets</h1>
     </div>
 
     <div class="mt-4">
@@ -110,19 +110,17 @@ export default {
 
 <style scoped>
 .page-title {
-    font-weight: 600;
-    font-size: 1.5rem;
-    color: #a200ff;
+    color: #007bff;
 }
 .button-color {
-    background-color: #a200ff;
+    background-color: #007bff;
     color: #ffffff;
 }
 .table-header {
     font-size: 0.85rem;
     font-weight: 600;
     padding: 10px;
-    background-color: #a200ff;
+    background-color: #007bff;
     color: #ffffff;
 }
 .table-data {

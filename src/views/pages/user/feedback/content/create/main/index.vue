@@ -40,16 +40,26 @@
             <div class="card card-body shadow-sm rounded-0 border-0">
               <div>
                 <label class="form-label">* Rate:</label>
-                <select
-                  class="form-select form-select-sm rounded-0"
-                  v-model="form.rate"
-                >
-                  <option value="" selected disabled>--Select Rate--</option>
-                  <option value="3">Excellent</option>
-                  <option value="2">Good</option>
-                  <option value="1">Bad</option>
-                </select>
+                <div class="d-flex align-items-center mb-2">
+                  <i
+                  v-for="star in 3"
+                  :key="star"
+                  class="bx"
+                  :class="[
+                    hoveredStar >= star || form.rate >= star
+                      ? 'bxs-star text-warning'
+                      : 'bx-star text-secondary'
+                  ]"
+                  style="font-size: 2rem; cursor: pointer; transition: color 0.2s;"
+                  @mouseover="hoveredStar = star"
+                  @mouseleave="hoveredStar = 0"
+                  @click="form.rate === star ? form.rate = 0 : form.rate = star"
+                  ></i>
+                  <span class="ms-3 fs-6">{{ rateLabel }}</span>
+                </div>
               </div>
+
+
   
               <div>
                 <label class="form-label">* Comment:</label>
@@ -92,8 +102,25 @@
           ticket_id: this.$route.query.id,
         },
         staffs: [],
+        hoveredStar: 0,
       };
     },
+
+    computed: {
+      rateLabel() {
+        switch (this.form.rate) {
+          case 3:
+            return "Excellent";
+          case 2:
+            return "Good";
+          case 1:
+            return "Bad";
+          default:
+            return "No rating selected";
+        }
+      },
+    },
+
   
     mounted() {
       console.log("TICKET ID:", this.form.ticket_id);

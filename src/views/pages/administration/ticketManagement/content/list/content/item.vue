@@ -30,57 +30,71 @@
             {{ item.completed_date || "TBD"}}
         </td>
         <td class="table-data">
-            <router-link
+            <!-- No assignee selected -->
+             <div v-if="!item.assigned_by">
+                <router-link
                 :to="`/administration/ticket-management/${item.id}/edit`"
                 class="btn btn-outline-info btn-sm me-3"
-                ><i class="bx bx-edit"></i>
-            </router-link>
+                >
+                    <i class="bx bx-edit"></i>
+                </router-link>
 
-            <button
-                class="btn btn-outline-danger btn-sm"
-                @click="deleteTicket()"><i class="bx bx-trash"></i>
-            </button>
-        </td>
-        <td class="table-data">
-            <button
-                v-if="[2,3].includes(item.approval_status)"
-                class="btn btn-outline-secondary btn-sm"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                data-bs-title="Re-assigned ticket"
-                @click="pendingStatus()"
-                :disabled="pendingStatusLoading">
-                <small v-if="!pendingStatusLoading">
-                    <i class='bx bx-refresh'></i>
-                </small>
-                <small v-else>
-                    Loading...
-                </small>
-            </button>
+                <button
+                    class="btn btn-outline-warning btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#reasonDeclineModal"
+                    :disabled="cancelStatusLoading"
+                    @click="selectedItem = item">
+                    <small v-if="!cancelStatusLoading">
+                        <i class="bx bxs-x-circle"></i>
+                    </small>
+                    <small v-else>Loading...</small>
+                </button>
+             </div>
 
-            <button
-                v-if="[1].includes(item.approval_status)"
-                class="btn btn-outline-success btn-sm me-3"
-                @click="approveStatus()">
-                <small v-if="!approveStatusLoading">
-                    <i class='bx bxs-check-circle' ></i>
-                </small>
-                <small v-else>
-                    Loading...
-                </small>
-            </button>
+            <!-- Assigned but not approved/declined -->
+            <div v-else-if="item.assigned_by && item.approval_status === 1">
+                <button
+                    class="btn btn-outline-success btn-sm me-2"
+                    @click="approveStatus"
+                    :disabled="approveStatusLoading"
+                >
+                    <small v-if="!approveStatusLoading">
+                        <i class="bx bxs-check-circle"></i>
+                    </small>
+                    <small v-else>Loading...</small>
+                </button>
 
-            <button
-                v-if="[1].includes(item.approval_status)"
-                class="btn btn-outline-warning btn-sm"
-                @click="cancelStatus()">
-                <small v-if="!cancelStatusLoading">
-                    <i class='bx bxs-x-circle'></i>
-                </small>
-                <small v-else>
-                    Loading...
-                </small>
-            </button>
+            </div>
+
+            <!-- Approved -->
+            <span v-else-if="item.approval_status === 2" class="badge bg-success">
+                ✔️ Approved
+            </span>
+
+            <!-- Declined -->
+             <div v-else-if="item.approval_status === 3">
+                <button
+                    class="btn btn-outline-secondary btn-sm me-3"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-title="Revert to pending"
+                    @click="pendingStatus"
+                    :disabled="pendingStatusLoading"
+                >
+                    <small v-if="!pendingStatusLoading">
+                        <i class="bx bx-refresh"></i>
+                    </small>
+                    <small v-else>Loading...</small>
+                </button>
+
+                <button
+                    data-bs-toggle="modal"
+                    data-bs-target="#reasonDeclineView"
+                    class="btn btn-outline-secondary btn-sm rounded-0">
+                    View Reason
+                </button>
+             </div>
         </td>
     </tr>
 </template>
@@ -97,6 +111,8 @@ export default
             pendingStatusLoading: false,
             approveStatusLoading: false,
             cancelStatusLoading: false,
+
+            selectedItem: null, // ✅ store selected item here
         };
     },
 

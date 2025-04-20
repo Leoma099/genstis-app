@@ -69,9 +69,9 @@
 
                     <div class="form-group mb-3">
                         <label class="form-label">* Assigned To:</label>
-                        <select class="form-select form-select-sm rounded-0" v-model="form.assigned_by" required>
+                        <select class="form-select form-select-sm rounded-0" v-model="form.assigned_by">
                             <option value="" disabled selected>-- Select Staff --</option>
-                            <option v-for="(staff, index) in staffs" :key="index" :value="staff.id">
+                            <option v-for="(staff, index) in staffs" :key="index" :value="staff.id" required>
                                 {{ staff.full_name }}
                             </option>
                         </select>
@@ -94,7 +94,7 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label class="form-label">* Status:</label>
-                                <select class="form-select form-select-sm rounded-0" v-model="form.status" required>
+                                <select class="form-select form-select-sm rounded-0" v-model="form.status" disabled>
                                     <option value="0" disabled>-- Select Status --</option>
                                     <option value="1">Pending</option>
                                     <option value="2">In-Progress</option>
@@ -124,10 +124,36 @@
                                     type="date"
                                     class="form-control form-control-sm rounded-0"
                                     v-model="form.completed_date"
+                                    disabled
                                 />
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label mb-0">* Photo:</label>
+                        <button type="button" class="btn btn-secondary rounded-0 btn-sm ms-3" data-bs-toggle="modal" data-bs-target="#viewAttachPhoto">View Images</button>
+                    </div>
+
+                    <!-- Modal Start -->
+                    <div class="modal fade" id="viewAttachPhoto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl modal-centered">
+                            <div class="modal-content rounded-0 border-0">
+                                <div class="modal-body">
+                                    <img :src="attachPhoto" alt="Attached Image" class="img-fluid" v-if="form.photo"/>
+                                    <div class="text-end mt-3">
+                                        <button
+                                            type="button"
+                                            class="btn btn-sm btn-secondary rounded-0"
+                                            data-bs-dismiss="modal">
+                                            Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    <!-- Modal End -->
 
                     <div class="form-group mb-3">
                         <label class="form-label mb-0">* Problem Description:</label>
@@ -178,6 +204,17 @@ export default
             isLoading: false,  // Track if the login is in progress
             staffs: [],
 
+        }
+    },
+
+    computed:
+    {
+        attachPhoto()
+        {
+            if (this.form && this.form.photo) {
+                return `http://127.0.0.1:8000/storage/${this.form.photo}`;
+            }
+            return 'https://www.example.com/default-profile-image.png';
         }
     },
 

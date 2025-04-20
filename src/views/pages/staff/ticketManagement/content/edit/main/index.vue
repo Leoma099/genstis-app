@@ -141,6 +141,31 @@
                     </div>
 
                     <div class="form-group mb-3">
+                        <label class="form-label mb-0">* Photo:</label>
+                        <button type="button" class="btn btn-secondary rounded-0 btn-sm ms-3" data-bs-toggle="modal" data-bs-target="#viewAttachPhoto">View Images</button>
+                    </div>
+
+                    <!-- Modal Start -->
+                    <div class="modal fade" id="viewAttachPhoto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl modal-centered">
+                            <div class="modal-content rounded-0 border-0">
+                                <div class="modal-body">
+                                    <img :src="attachPhoto" alt="Attached Image" class="img-fluid" v-if="form.photo"/>
+                                    <div class="text-end mt-3">
+                                        <button
+                                            type="button"
+                                            class="btn btn-sm btn-secondary rounded-0"
+                                            data-bs-dismiss="modal">
+                                            Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    <!-- Modal End -->
+
+                    <div class="form-group mb-3">
                         <label class="form-label mb-0">* Problem Description:</label>
                         <textarea
                             class="form-control form-control-sm rounded-0"
@@ -197,6 +222,17 @@ export default
         console.log("Route ID:", this.$route.params.id);
         this.fetchBorrowData();
         this.toast = useToast();
+    },
+
+    computed:
+    {
+        attachPhoto()
+        {
+            if (this.form && this.form.photo) {
+                return `http://127.0.0.1:8000/storage/${this.form.photo}`;
+            }
+            return 'https://www.example.com/default-profile-image.png';
+        }
     },
 
     methods:

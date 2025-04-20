@@ -51,6 +51,11 @@
                 </div>
 
                 <div class="form-group mb-3">
+                    <label class="form-label">* Photo:</label>
+                    <input type="file" class="form-control form-control-sm rounded-0" @change="handleFileUpload">
+                </div>
+
+                <div class="form-group mb-3">
                     <label class="form-label mb-0">* Problem Description:</label>
                     <textarea name="" id="" cols="30" rows="5" class="form-control form-control-sm rounded-0" placeholder="ex. Your problem in detail" v-model="form.description"></textarea>
                 </div>
@@ -94,7 +99,7 @@ export default
                 completed_date: "",
                 description: "",
                 assigned_by: "",
-                attachment_photo: "null",
+                photo: null,
             },
             isLoading: false,  // Track if the login is in progress
             ticketCount: 1, // Initialize ticket counter
@@ -141,7 +146,7 @@ export default
 
         handleFileUpload(event)
         {
-            this.form.attachment_photo = event.target.files[0];
+            this.form.photo = event.target.files[0];
         },
 
         fetchUserDetails()
@@ -188,6 +193,7 @@ export default
 
             try {
                 let formData = new FormData();
+
                 formData.append("ticket_order", this.form.ticket_order); // Make sure it's included
                 formData.append("account_id", this.form.account_id);
                 formData.append("full_name", this.form.full_name);
@@ -199,11 +205,14 @@ export default
                 formData.append("completed_date", this.form.completed_date);
                 formData.append("description", this.form.description);
 
-                if (this.form.attachment_photo) {
-                    formData.append("attachment_photo", this.form.attachment_photo);
+                if (this.form.photo) {
+                    formData.append("photo", this.form.photo);
                 }
 
-                const response = await apiClient.post("/ticket", formData);
+                const response = await apiClient.post("/ticket", formData, {
+                    headers: { "Content-Type": "multipart/form-data" } // ✅ Important for file upload
+                });
+
                 console.log(response.data);
                 this.toast.success("Request ticket created successfully!");
                 setTimeout(() => {

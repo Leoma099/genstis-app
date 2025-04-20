@@ -46,7 +46,7 @@
                             {{ formatPriorityLevel(item.priority_level) }}
                         </td>
                         <td class="table-data">
-                            {{ formatAsignee(item.assigned_by) }}
+                            {{ item.assigned_by }}
                         </td>
                         <td class="table-data">
                             {{ formatStatus(item.status) }}

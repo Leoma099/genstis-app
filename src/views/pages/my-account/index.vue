@@ -28,7 +28,7 @@
 
                             <p><strong class="me-3">Full name:</strong>{{ user.full_name }}</p>
                             <p><strong class="me-3">Email Address:</strong>{{ user.email }}</p>
-                            <p><strong class="me-3">Department:</strong>{{ user.department }}</p>
+                            <p><strong class="me-3">Department:</strong>{{ formatDepartment(user.department) }}</p>
                             <p><strong class="me-3">Position:</strong>{{ user.position }}</p>
                             <p><strong class="me-3">Address:</strong>{{ user.address }}</p>
                             <p><strong class="me-3">Mobile Number:</strong>{{ user.mobile_number }}</p>
@@ -115,7 +115,33 @@ export default
                 case 3: return 'Client';
                 default: return 'Unknown';
             }
-        }
+        },
+
+        formatDepartment(department)
+        {
+            const departments =
+            {
+                1: "CBA - College of Business and Administration",
+                2: "CASED - College of Arts and Science Education",
+                3: "Registrar",
+                4: "Payroll",
+                5: "Accounting Finance",
+                6: "Quality Assurance",
+                7: "AASS",
+                8: "HR - Human Resource",
+                9: "MIS Office",
+                10: "Rikdo Office",
+                11: "Graduate School",
+                12: "Museum",
+                13: "Library",
+                14: "Sewing",
+                15: "Principal Office",
+                16: "CESO Office",
+                17: "Cashier",
+                18: "CCS - College of Computer Studies",
+            };
+            return departments[department] || "N/A";
+        },
     },
 };
 </script>
@@ -123,7 +149,7 @@ export default
 <style scoped>
 .page-title
 {
-    color: #a200ff;
+    color: #007bff;
 }
 </style>
   

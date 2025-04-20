@@ -1,14 +1,5 @@
 <template>
     <tr>
-        <!-- <td class="table-data">
-            <div v-if="isLoading" class="shimmer-loader"></div>
-            <span v-else>
-                <router-link
-                    :to="`/administration/ticket-management/${item.id}`">
-                    {{ item.id }}
-                </router-link>
-            </span>
-        </td> -->
         <td class="table-data">
             {{ item.ticket_order }}
         </td>
@@ -37,19 +28,27 @@
             {{ item.completed_time }}
         </td>
         <td class="table-data">
-            <router-link
-                :to="`/staff/ticket-management/${item.id}/edit`"
-                class="btn btn-outline-info btn-sm me-3"
-                ><i class="bx bx-edit"></i>
-            </router-link>
-
-            <button
-                class="btn btn-outline-danger btn-sm"
-                @click="deleteTicket()"><i class="bx bx-trash"></i>
-            </button>
+            <template v-if="item.status !== 3">
+                <router-link
+                    :to="`/staff/ticket-management/${item.id}/edit`"
+                    class="btn btn-outline-info btn-sm me-3"
+                >
+                    <i class="bx bx-edit"></i>
+                </router-link>
+                <button
+                    class="btn btn-outline-danger btn-sm"
+                    @click="deleteTicket()"
+                >
+                    <i class="bx bx-trash"></i>
+                </button>
+            </template>
+            <template v-else>
+                <span class="badge bg-success">Marked as Resolved</span>
+            </template>
         </td>
     </tr>
 </template>
+
 <script>
 import apiClient from "@/services/authorization";
 import { useToast } from "vue-toastification";

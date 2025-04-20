@@ -3,7 +3,7 @@
     <div class="animate animate-fade-in">
 
         <div class="d-flex justify-content-between align-items-center">
-            <p class="page-title mb-0">DASHBOARD</p>
+            <h1 class="page-title mb-0">DASHBOARD</h1>
             <router-link :to="'/user/request-ticket/create'" class="btn rounded-0 button-color">Request Ticket</router-link>
         </div>
 
@@ -52,12 +52,10 @@ export default
     }
 }
 .page-title {
-    font-weight: 600;
-    font-size: 1.5rem;
-    color: #a200ff;
+    color: #007bff;
 }
 .button-color {
-    background-color: #a200ff;
+    background-color: #007bff;
     color: #ffffff;
 }
 </style>

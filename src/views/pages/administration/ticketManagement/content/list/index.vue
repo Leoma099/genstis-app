@@ -39,7 +39,6 @@
                                 <th class="table-header">REQUEST DATE</th>
                                 <th class="table-header">COMPLETED DATE</th>
                                 <th class="table-header">ACTION</th>
-                                <th class="table-header">PERMISSION</th>
                             </tr>
                         </thead>
                         <tbody v-if="!isEmpty">
@@ -69,7 +68,9 @@
                 </div>
             </div>
         </div>
-
+        <reason-modal
+            :selectItem="selectItem"
+            :updateItem="updateItem"/>
     </div>
 
 </template>
@@ -77,6 +78,7 @@
 <script>
 import apiClient from "@/services/authorization";
 import ItemComponent from "./content/item.vue";
+import ReasonModal from "./content/components/reason.vue";
 export default
 {
 
@@ -98,6 +100,7 @@ export default
     components:
     {
         ItemComponent,
+        ReasonModal
     },
 
     mounted()
@@ -174,17 +177,17 @@ export default
     }
 }
 .page-title {
-    color: #a200ff;
+    color: #007bff;
 }
 .button-color {
-    background-color: #a200ff;
+    background-color: #007bff;
     color: #ffffff;
 }
 .table-header {
     font-size: 0.85rem;
     font-weight: 600;
     padding: 10px;
-    background-color: #a200ff;
+    background-color: #007bff;
     color: #ffffff;
 }
 .table-data {

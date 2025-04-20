@@ -11,11 +11,14 @@
         </td>
         <td class="table-data">{{ formatDate(item.request_date) }}</td>
         <td class="table-data">{{ formatDate(item.completed_date) }}</td>
-        <td class="table-data">{{ item.completed_time }}</td>
+        <td class="table-data">{{ formatTime(item.completed_time) }}</td>
         <td class="table-data">
             <router-link
                 :to="`/user/feedback/create?id=${item?.id}`"
-                class="btn btn-sm btn-primary rounded-0">
+                class="btn btn-sm rounded-0"
+                :class="item.status === 3 ? 'btn-primary' : 'btn-secondary disabled'"
+                :aria-disabled="item.status !== 3"
+                @click.prevent="item.status !== 3">
                 Feedback
             </router-link>
         </td>
@@ -57,6 +60,19 @@ export default
                 month: "long",
                 day: "2-digit",
             })
+        },
+
+        formatTime(time)
+        {
+            if (!time) return "N/A";
+            const [hour, minute] = time.split(":");
+            const date = new Date();
+            date.setHours(+hour, +minute);
+            return date.toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true,
+            });
         },
 
         formatDepartment(department)

@@ -51,13 +51,18 @@ export default
 
             const data =
             {
-                labels: ["Pending", "In-Progress", "Resolved", "Unresolved"],
+                labels: [
+                    `Pending: ${pending}`,
+                    `In-Progress: ${inProgress}`,
+                    `Resolved: ${resolved}`,
+                    `Unresolved: ${unresolved}`
+                ],
                 datasets: [
-                {
-                    data: [pending, inProgress, resolved, unresolved], // Real-time data
-                    backgroundColor: ["#d0d0d0", "#FFC300", "#28A745", "#DC3545"],
-                    hoverOffset: 10, // Adds hover effect
-                },
+                    {
+                        data: [pending, inProgress, resolved, unresolved], // Real-time data
+                        backgroundColor: ["#d0d0d0", "#FFC300", "#28A745", "#DC3545"],
+                        hoverOffset: 10, // Adds hover effect
+                    },
                 ],
             };
 
@@ -68,20 +73,20 @@ export default
                 cutout: "60%",
                 borderRadius: "5",
                 plugins: {
-                legend: {
-                    position: "right", // Legend positioned on the right
-                },
-                tooltip: {
-                    callbacks: {
-                    label: function (tooltipItem) {
-                        let dataset = tooltipItem.dataset;
-                        let dataIndex = tooltipItem.dataIndex;
-                        let label = data.labels[dataIndex];
-                        let value = dataset.data[dataIndex];
-                        return `${label}: ${value}`;
+                    legend: {
+                        position: "right", // Legend positioned on the right
                     },
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                let dataset = tooltipItem.dataset;
+                                let dataIndex = tooltipItem.dataIndex;
+                                let label = data.labels[dataIndex];
+                                let value = dataset.data[dataIndex];
+                                return `${label}: ${value}`;
+                            },
+                        },
                     },
-                },
                 },
             };
 

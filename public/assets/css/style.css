@@ -96,7 +96,7 @@ body {
     font-weight: 500;
     display: block;
     cursor: pointer;
-    color: #a200ff;
+    color: #007bff;
 
 }
 
@@ -108,8 +108,8 @@ body {
 
 .sidebar .sidebar-nav li:hover {
 
-    border-right: 5px solid #a200ff;
-    background-color: #db9cff;
+    border-right: 5px solid #007bff;
+    background-color: #6ab2ff;
 
 }
 
@@ -138,7 +138,7 @@ body {
 
     position: sticky;
     top: 0;
-    background-color: #a200ff;
+    background-color: #007bff;
     padding: 20px;
     display: flex;
     align-items: center;
