@@ -313,12 +313,12 @@ export default
     font-size: 0.85rem;
     font-weight: 600;
     padding: 10px;
-    background-color: #a200ff;
+    background-color: #007bff;
     color: #ffffff;
 }
 .page-title
 {
-    color: #a200ff;
+    color: #007bff;
 }
 .pagination-container {
     display: flex;

@@ -119,7 +119,7 @@ export default
 {
     font-weight: 600;
     font-size: 1.5rem;
-    color: #a200ff;
+    color: #007bff;
 }
 </style>
 

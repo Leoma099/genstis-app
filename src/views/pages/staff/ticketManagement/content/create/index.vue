@@ -2,7 +2,7 @@
 
     <div class="animate animate-fade-in">
 
-        <p class="page-title mb-0">Create New Ticket</p>
+        <h1 class="page-title mb-0">Create New Ticket</h1>
 
         <main-component v-if="$route.meta.subPage === 'main'" />
 
@@ -43,8 +43,6 @@ export default
     }
 }
 .page-title {
-    font-weight: 600;
-    font-size: 1.5rem;
-    color: #a200ff;
+    color: #007bff;
 }
 </style>

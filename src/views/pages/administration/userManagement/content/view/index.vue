@@ -1,6 +1,6 @@
 <template>
 
-    <p class="page-title mb-0">View User Account</p>
+    <h1 class="page-title mb-0">View User Account</h1>
     <small>
         <router-link
             :to="'/administration/user-management'">
@@ -180,8 +180,6 @@ export default
 
 <style scoped>
 .page-title {
-    font-weight: 600;
-    font-size: 1.5rem;
-    color: #a200ff;
+    color: #007bff;
 }
 </style>

@@ -110,6 +110,6 @@ export default {
 <style scoped>
 .page-title
 {
-    color: #a200ff;
+    color: #007bff;
 }
 </style>

@@ -58,10 +58,10 @@ export default
     }
 }
 .page-title {
-    color: #a200ff;
+    color: #007bff;
 }
 .button-color {
-    background-color: #a200ff;
+    background-color: #007bff;
     color: #ffffff;
 }
 </style>

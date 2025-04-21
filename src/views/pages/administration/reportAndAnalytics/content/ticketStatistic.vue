@@ -79,7 +79,7 @@ export default
                             label: "Ticket Requested",
                             data: monthly,
                             fill: false,
-                            backgroundColor: "#a200ff",
+                            backgroundColor: "#007bff",
                             tension: 0.4,
                         },
                     ],
@@ -124,6 +124,6 @@ export default
 {
     font-weight: 600;
     font-size: 1.5rem;
-    color: #a200ff;
+    color: #007bff;
 }
 </style>

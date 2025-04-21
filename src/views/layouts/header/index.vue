@@ -239,7 +239,7 @@ nav {
   display: flex;
   justify-content: space-between;
   padding: 10px 20px;
-  background: #a200ff;
+  background: #007bff;
   color: white;
 }
 

@@ -124,17 +124,17 @@ export default
 .page-title {
     font-weight: 600;
     font-size: 1.5rem;
-    color: #a200ff;
+    color: #007bff;
 }
 .button-color {
-    background-color: #a200ff;
+    background-color: #007bff;
     color: #ffffff;
 }
 .table-header {
     font-size: 0.85rem;
     font-weight: 600;
     padding: 10px;
-    background-color: #a200ff;
+    background-color: #007bff;
     color: #ffffff;
 }
 .table-data {
@@ -172,9 +172,9 @@ export default
 }
 
 .pagination-buttons button.active {
-    background: #a200ff;
+    background: #007bff;
     color: white;
-    border-color: #a200ff;
+    border-color: #007bff;
 }
 
 .pagination-buttons button:disabled {

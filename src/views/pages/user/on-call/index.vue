@@ -3,7 +3,7 @@
     <div class="animate animate-fade-in">
 
         <div class="d-flex justify-content-between align-items-center">
-            <p class="page-title mb-0">ON-CALL</p>
+            <h1 class="page-title mb-0">ON-CALL</h1>
         </div>
 
         <div class="mt-4">
@@ -45,12 +45,10 @@ export default
     }
 }
 .page-title {
-    font-weight: 600;
-    font-size: 1.5rem;
-    color: #a200ff;
+    color: #007bff;
 }
 .button-color {
-    background-color: #a200ff;
+    background-color: #007bff;
     color: #ffffff;
 }
 </style>

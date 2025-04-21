@@ -1,6 +1,6 @@
 <template>
 
-    <p class="page-title mb-0">Feedback</p>
+    <h1 class="page-title mb-0">Feedback</h1>
 
 
 
@@ -76,16 +76,14 @@ export default
 <style scoped>
 .page-title
 {
-    font-weight: 600;
-    font-size: 1.5rem;
-    color: #a200ff;
+    color: #007bff;
 }
 .table-header
 {
     font-size: 0.85rem;
     font-weight: 600;
     padding: 10px;
-    background-color: #a200ff;
+    background-color: #007bff;
     color: #ffffff;
 }
 </style>

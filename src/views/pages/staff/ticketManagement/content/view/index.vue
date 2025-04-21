@@ -1,5 +1,5 @@
 <template>
-    <p class="page-title mb-0">View Ticket</p>
+    <h1 class="page-title mb-0">View Ticket</h1>
     <small>
         <router-link
             :to="'/staff/ticket-management'">
@@ -226,8 +226,6 @@ export default
 
 <style scoped>
 .page-title {
-    font-weight: 600;
-    font-size: 1.5rem;
     color: #2369c1;
 }
 </style>
