@@ -1,47 +1,63 @@
 <template>
 
-    <p class="page-title mb-0">View List</p>
+    <h1 class="page-title mb-0">View List</h1>
+    <router-link
+        :to="'/user/request-ticket'">
+        Go back to page
+    </router-link>
+
+    <div class="mt-4 col-4 mx-auto">
+        <div class="card card-body shadow-sm rounded-0 border-0">
+            <h2>REASON TO DECLINE:</h2>
+            <textarea
+                class="form-control form-control-sm rounded-0"
+                rows="10"
+                :value="item.reason"
+                readonly>
+            </textarea>
+        </div>
+    </div>
 
 </template>
 
-<style scoped>
-.animate
-{
-    animation-duration: 1s;
-    animation-fill-mode: none;
-}
-.animate-fade-in
-{
-    animation-name: fadeIn;
-}
+<script>
+import apiClient from '@/services/authorization';
 
-@keyframes fadeIn{
-    from{
-        opacity: 0;
-    }
-    to{
-        opacity: 1;
+export default
+{
+    data()
+    {
+        return{
+            item: {}
+        }
+    },
+
+    mounted()
+    {
+        this.fetchTicketData();
+    },
+
+    methods:
+    {
+        async fetchTicketData()
+        {
+            try
+            {
+                const ticketResponse = await apiClient.get(`/ticket/${this.$route.params.id}`);
+                this.item = ticketResponse.data;
+                console.log("Fetched borrow:", ticketResponse.data);
+            }
+            catch(error)
+            {
+                console.error("Error occured:", error);
+            }
+        }
     }
 }
+</script>
+
+<style scoped>
 .page-title {
-    font-weight: 600;
-    font-size: 1.5rem;
-    color: #a200ff;
-}
-.button-color {
-    background-color: #a200ff;
-    color: #ffffff;
-}
-.table-header {
-    font-size: 0.85rem;
-    font-weight: 600;
-    padding: 10px;
-    background-color: #a200ff;
-    color: #ffffff;
-}
-.table-data {
-    font-size: 0.70rem;
-    font-weight: 400;
-    padding: 10px;
+    color: #007bff;
 }
 </style>

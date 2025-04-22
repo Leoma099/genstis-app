@@ -68,9 +68,9 @@
                 </div>
             </div>
         </div>
-        <reason-modal
-            :selectItem="selectItem"
-            :updateItem="updateItem"/>
+
+        <reason-modal :selectedItem="selectedItem" :updateItem="updateItem" :selectItem="selectItem"/>
+        <reason-view-modal :selectedItem="selectedItem" :updateItem="updateItem" :selectItem="selectItem"/>
     </div>
 
 </template>
@@ -78,13 +78,16 @@
 <script>
 import apiClient from "@/services/authorization";
 import ItemComponent from "./content/item.vue";
-import ReasonModal from "./content/components/reason.vue";
+
+import ReasonModal from './content/components/reason';
+import ReasonViewModal from './content/components/reason-view.vue';
 export default
 {
 
     data()
     {
         return{
+            reasonModal: false,
 
             items:[],
             searchQuery: "",
@@ -100,13 +103,22 @@ export default
     components:
     {
         ItemComponent,
-        ReasonModal
+
+        ReasonModal,
+        ReasonViewModal
     },
 
     mounted()
     {
         this.fetchTickets();
-        console.log("test", this.account_id)
+    },
+
+    computed:
+    {
+        hasSelectedItem()
+        {
+            return Object.keys(this.selectedItem).length > 0;
+        }
     },
 
     methods:

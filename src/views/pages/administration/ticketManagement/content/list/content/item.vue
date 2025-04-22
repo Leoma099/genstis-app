@@ -31,7 +31,7 @@
         </td>
         <td class="table-data">
             <!-- No assignee selected -->
-             <div v-if="!item.assigned_by">
+             <div v-if="!item.assigned_by && item.approval_status === 1">
                 <router-link
                 :to="`/administration/ticket-management/${item.id}/edit`"
                 class="btn btn-outline-info btn-sm me-3"
@@ -41,14 +41,14 @@
 
                 <button
                     class="btn btn-outline-warning btn-sm"
-                    data-bs-toggle="modal"
-                    data-bs-target="#reasonDeclineModal"
-                    :disabled="cancelStatusLoading"
-                    @click="selectedItem = item">
+                    @click="openModal('reasonDeclineModal')"
+                    :disabled="cancelStatusLoading">
                     <small v-if="!cancelStatusLoading">
-                        <i class="bx bxs-x-circle"></i>
+                        <i class='bx bxs-x-circle'></i>
                     </small>
-                    <small v-else>Loading...</small>
+                    <small v-else>
+                        Loading...
+                    </small>
                 </button>
              </div>
 
@@ -89,8 +89,7 @@
                 </button>
 
                 <button
-                    data-bs-toggle="modal"
-                    data-bs-target="#reasonDeclineView"
+                    @click="openViewModal('reasonViewDeclineModal')"
                     class="btn btn-outline-secondary btn-sm rounded-0">
                     View Reason
                 </button>
@@ -99,6 +98,8 @@
     </tr>
 </template>
 <script>
+import { Modal } from 'bootstrap';
+
 import apiClient from "@/services/authorization";
 import { useToast } from "vue-toastification";
 export default
@@ -112,7 +113,10 @@ export default
             approveStatusLoading: false,
             cancelStatusLoading: false,
 
-            selectedItem: null, // ✅ store selected item here
+            form:
+            {
+                reason: "",
+            }
         };
     },
 
@@ -128,6 +132,9 @@ export default
     {
         this.toast = useToast();
         this.fetchStaffs();
+        // console.log("ID", this.selectItem);
+
+        console.log(this);
     },
 
     methods:
@@ -298,7 +305,9 @@ export default
 
             this.cancelStatusLoading = true;
             
-            const response = await apiClient.put(`/ticket/${this.item.id}/cancel`);
+            const response = await apiClient.put(`/ticket/${this.item.id}/cancel`, {
+                    reason: this.form.reason
+                });
 
             this.cancelStatusLoading = false;
 
@@ -318,6 +327,19 @@ export default
             }
         },
 
+        openModal(name)
+        {
+            this.selectItem(this.item);
+            const myModal = new Modal(document.getElementById(name));
+            myModal.show();
+        },
+
+        openViewModal(name)
+        {
+            this.selectItem(this.item);
+            const myModal = new Modal(document.getElementById(name));
+            myModal.show();
+        }
         
     }
 }

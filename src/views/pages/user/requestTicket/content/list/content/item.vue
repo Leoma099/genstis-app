@@ -13,14 +13,33 @@
         <td class="table-data">{{ formatDate(item.completed_date) }}</td>
         <td class="table-data">{{ formatTime(item.completed_time) }}</td>
         <td class="table-data">
-            <router-link
-                :to="`/user/feedback/create?id=${item?.id}`"
-                class="btn btn-sm rounded-0"
-                :class="item.status === 3 ? 'btn-primary' : 'btn-secondary disabled'"
-                :aria-disabled="item.status !== 3"
-                @click.prevent="item.status !== 3">
-                Feedback
-            </router-link>
+            <div v-if="item.approval_status === 2">
+                <p class="mb-0 badge bg-success">Approved</p>
+            </div>
+
+            <div v-else-if="item.approval_status === 3">
+                <p class="mb-0 badge bg-danger">Rejected</p>
+            </div>
+        </td>
+        <td class="table-data">
+            <div v-if="item.approval_status === 2">
+                <router-link
+                    :to="`/user/feedback/create?id=${item?.id}`"
+                    class="btn btn-sm rounded-0"
+                    :class="item.status === 3 ? 'btn-primary' : 'btn-secondary disabled'"
+                    :aria-disabled="item.status !== 3"
+                    @click.prevent="item.status !== 3">
+                    Feedback
+                </router-link>
+            </div>
+
+            <div v-else-if="item.approval_status === 3">
+                <router-link
+                    :to="`/user/request-ticket/${item.id}`"
+                    class="btn btn-sm rounded-0 btn-danger">
+                    reason
+                </router-link>
+            </div>
         </td>
     </tr>
 </template>

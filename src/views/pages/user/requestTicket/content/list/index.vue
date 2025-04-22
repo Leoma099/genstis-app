@@ -28,6 +28,7 @@
                             <th class="table-header">REQUEST DATE</th>
                             <th class="table-header">COMPLETED DATE</th>
                             <th class="table-header">COMPLETED TIME</th>
+                            <th class="table-header">APPROVAL STATUS</th>
                             <th class="table-header">ACTION</th>
                         </tr>
                     </thead>

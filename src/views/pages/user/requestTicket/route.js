@@ -22,7 +22,7 @@ export default [
                     },
                 },
                 {
-                    path: ':code',
+                    path: ':id',
                     name: 'View Ticket / Request Ticket',
                     component: () => import('@/views/pages/user/requestTicket'),
                     meta:

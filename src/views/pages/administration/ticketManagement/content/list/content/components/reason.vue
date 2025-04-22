@@ -8,6 +8,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <!-- {{ selectedItem.id }} -->
                     <form @submit.prevent="submit()">
                         <div class="form-group">
                             <label class="form-label">* Comment:</label>
@@ -20,7 +21,7 @@
                         </div>
                         <div class="text-end mt-3">
                             <button type="button" class="btn btn-sm btn-secondary rounded-0 me-3" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-sm btn-primary rounded-0">Save changes</button>
+                            <button type="submit" class="btn btn-sm btn-primary rounded-0" data-bs-dismiss="modal">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -37,8 +38,9 @@ export default
 {
     props:
     {
-        selectItem: Function,
-        updateItem: Function,
+        selectedItem: Object,
+        cancelStatus: Function,
+        updateItem: Function
     },
 
     data()
@@ -54,7 +56,6 @@ export default
     mounted()
     {
         this.toast = useToast();
-        console.log("TESTSS:", this.selectItem);
     },
 
     methods:
@@ -63,16 +64,13 @@ export default
         {
             try
             {
-                this.selectItem(this.item);
-
-                const response = await apiClient.put(`/ticket/${this.item.id}/cancel`, {
+                const response = await apiClient.put(`/ticket/${this.selectedItem.id}/cancel`, {
                     reason: this.form.reason
                 });
                 
                 if (response.status === 200) {
                     this.updateItem(response.data);
-                    this.toast.success(`${this.item.ticket_order} is now canceled.`);
-
+                    this.toast.success(`${this.selectedItem.ticket_order} is now canceled.`);
                     this.form.reason = ""; // Clear textarea
                 }
             }

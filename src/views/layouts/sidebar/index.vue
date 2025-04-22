@@ -4,7 +4,7 @@
 
         <div class="sidebar-logo">
 
-            <img src="/assets//images/gensts-ccs.png" alt="">
+            <img src="/assets/images/itso.png" alt="">
 
         </div>
 
