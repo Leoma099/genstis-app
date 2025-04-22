@@ -39,7 +39,7 @@
           <div class="col-md-8">
             <div class="card card-body shadow-sm rounded-0 border-0">
               <div>
-                <label class="form-label">* Rate:</label>
+                <h3>Rate the service quality you choose</h3>
                 <div class="d-flex align-items-center mb-2">
                   <i
                   v-for="star in 3"

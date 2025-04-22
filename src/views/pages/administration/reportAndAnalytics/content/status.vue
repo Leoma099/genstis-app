@@ -50,7 +50,14 @@ export default
 
             const data =
             {
-                labels: ["Pending", "In-Progress", "Resolved", "Unresolved"],
+                labels:
+                [
+                    `Pending: ${pending}`,
+                    `In-Progress: ${inProgress}`,
+                    `Resolved: ${resolved}`,
+                    `Unresolved: ${unresolved}`
+                ]
+                ,
                 datasets: [
                 {
                     data: [pending, inProgress, resolved, unresolved], // Real-time data

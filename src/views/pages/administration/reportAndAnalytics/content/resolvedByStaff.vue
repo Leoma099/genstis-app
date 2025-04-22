@@ -46,7 +46,7 @@
                             {{ formatPriorityLevel(item.priority_level) }}
                         </td>
                         <td class="table-data">
-                            {{ item.assigned_by }}
+                            {{ formatAsignee(item.assigned_by) }}
                         </td>
                         <td class="table-data">
                             {{ formatStatus(item.status) }}
@@ -85,12 +85,15 @@ export default
             isEmpty: false,
             perPage: 10,
             currentPage: 1,
+
+            staffs: [],
         }
     },
 
     mounted()
     {
         this.fetchData();
+        this.fetchStaffs();
     },
 
     methods:
@@ -116,6 +119,22 @@ export default
                 console.error("Error occured:", error)
             }
         },
+
+        async fetchStaffs()
+        {
+
+            try
+            {
+                const response = await apiClient.get("/get-staff");
+                this.staffs = response.data;  // Assign the response data directly to `staffs`
+                console.log(this.staffs);  // Log the fetched staff data to check
+            }
+            catch(error)
+            {
+                console.error("Error fetching staffs:", error);
+            }
+        },
+
         formatDepartment(department)
         {
             if(department === 1)
@@ -195,6 +214,7 @@ export default
                 return "n/a";
             }
         },
+
         formatSubject(subject)
         {
             if(subject === 1)
@@ -238,6 +258,7 @@ export default
                 return "n/a";
             }
         },
+
         formatPriorityLevel(priority_level)
         {
             if(priority_level === 1)
@@ -261,6 +282,7 @@ export default
                 return "n/a";
             }
         },
+
         formatStatus(status)
         {
             if(status === 1)
@@ -284,24 +306,12 @@ export default
                 return "n/a";
             }
         },
-        formatAsignee(asigned_by)
+
+        formatAsignee(staffId)
         {
-            if(asigned_by === 1)
-            {
-                return "Robert John Javani Minimo";
-            }
-            else if(asigned_by === 2)
-            {
-                return "Jacob R Canlas";
-            }
-            else if(asigned_by === 3)
-            {
-                return "Jeryc Erjy Mapilisan";
-            }
-            else
-            {
-                return "n/a";
-            }
+            // Find the staff member whose ID matches the assigned_by ID
+            const staff = this.staffs.find(staff => staff.id === staffId);
+            return staff ? staff.full_name : "N/A";  // If a match is found, return the staff's full name, otherwise return "N/A"
         },
     }
 }

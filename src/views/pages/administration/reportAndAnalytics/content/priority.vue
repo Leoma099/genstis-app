@@ -50,7 +50,13 @@ export default
 
             const data =
             {
-                labels: ["Low", "Medium", "High", "Emergency"],
+                labels:
+                [
+                    `low: ${low}`,
+                    `medium: ${medium}`,
+                    `high: ${high}`,
+                    `emergency: ${emergency}`
+                ],
                 datasets: [
                 {
                     data: [low, medium, high, emergency], // Real-time data
